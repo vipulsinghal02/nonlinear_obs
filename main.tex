@@ -1,0 +1,220 @@
+\documentclass[psamsfonts]{amsart}
+\usepackage[foot]{amsaddr}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+
+\setlength{\textwidth}{\paperwidth}
+\addtolength{\textwidth}{-3in}
+\calclayout
+
+\hypersetup{
+pdftitle={A brief tutorial on nonlinear observability},
+pdfsubject={System Identification, Differential Geometry, Control Theory, Synthetic Biology},
+pdfauthor={Vipul Singhal},
+pdfkeywords={system composability, submanifolds, foliations, system Identification, observability, identifiability, differential geometry, nonlinear control}
+}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{amsthm}
+\usepackage{pdflscape}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18} 
+\usepackage{mathrsfs}
+\usepackage{mathtools} % added from qb16
+\usepackage{amssymb}
+
+
+\usepackage{ dsfont } %mathds
+
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{quest}[thm]{Question}
+\newtheorem{claim}[thm]{Claim}
+\newtheorem{ppty}[thm]{Property}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{defns}[thm]{Definitions}
+\newtheorem{con}[thm]{Construction}
+\newtheorem{exmp}[thm]{Example}
+\newtheorem{exmps}[thm]{Examples}
+\newtheorem{notn}[thm]{Notation}
+\newtheorem{notns}[thm]{Notations}
+\newtheorem{addm}[thm]{Addendum}
+\newtheorem{exer}[thm]{Exercise}
+\newtheorem{limit}[thm]{Limitation}
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{rems}[thm]{Remarks}
+\newtheorem{warn}[thm]{Warning}
+\newtheorem{sch}[thm]{Scholium}
+
+\newcommand*\esp{\theta_e}
+\newcommand*\csp{\theta_p} 
+\newcommand*\syst{\mathcal{S}}
+\newcommand*\extract{\mathcal{E}}
+\newcommand*\circuit{\mathcal{P}}
+\newcommand*\environment{\mathcal{E}}
+\newcommand*\process{\mathcal{P}}
+\newcommand*\espset{\mathit{E}} 
+\newcommand*\cspset{\mathit{P}}
+% \newcommand*\pspset{\mathit{P}}
+\newcommand*\thetaset{\Theta}
+\newcommand*\R{\mathds{R}}
+\newcommand*\calib{\mathrm{cal}}
+\newcommand*\test{\mathrm{test}}
+\newcommand*\model{{M}}
+\newcommand*\experiment{\mathcal{H}}
+% \usepackage[mathscr]{euscript} 
+
+\newcommand*\nominal[1]{\overline{#1}}
+\newcommand*\estimated[1]{\hat{#1}}
+\DeclareMathOperator{\id}{{ID}}
+\DeclareMathOperator{\proj}{{proj}}
+\DeclareMathOperator{\aff}{{cut}}
+\DeclareMathOperator{\deriv}{d}
+% \newcommand*\modeldata{\mathcal{Y}\circ\mathcal{\model}}
+\newcommand*\modeldata{\Gamma}
+\newcommand*\placehold{{\color{red}XXYY }}
+\newcommand*\isdefined{\triangleq}
+\newcommand*\regist{\textsuperscript{\tiny\sffamily\textregistered}}
+
+
+\newcommand{\dataset}{{\cal D}}
+\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
+
+
+
+\makeatletter
+\let\c@equation\c@thm
+\makeatother
+\numberwithin{equation}{section}
+
+\bibliographystyle{plain}
+
+%--------Meta Data: Fill in your info------
+% \title{A Differential Geometric Approach to Composing Uncertain Systems for Prediction}
+% \title{Geometric Properties of Parametric Uncertainty in Genetic Circuits}
+\title{Nonlinear observability and identifiability}
+
+\author{Vipul Singhal$^1$}
+\address{$^1$Genome Institute of Singapore}
+% \author{Richard Murray$^2$}
+% \address{$^2$Control and Dynamical Systems, California Institute of Technology}
+\email{vipuls@gis.a-star.edu.sg}
+\begin{document}
+
+\begin{abstract}
+Parameter spaces foliated by observations. Local theory a la Isidori's textbook chapter 1, and Nijmeier Chapter 3. 
+
+
+
+
+\noindent \textbf{Keywords.} system composability, submanifolds, foliations, system identification, genetic circuits, machine learning, manifold learning
+% diffusion maps, polynomial ideals, parameter variety, graph laplacian
+% \noindent \textbf{e-mail:} \ \ \ \href{mailto:vs@alumni.caltech.edu}{vs@alumni.caltech.edu}\\
+\end{abstract}
+
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+
+\section{Mathematical Preliminaries}
+We assume some familiarity with basic notions from differential geometry: smooth (more generally differentiable) manifolds, coordinate charts and local representatives of maps and points, derivatives as operators (\cite{boothby_2002}), etc. We explicitly review some definitions and propositions we will need in subsequent sections. A more complete treatment can be found in any standard nonlinear control text, such as \cite{nijmeijer_nonlinear_1990}. 
+
+In what follows, we assume that all manifolds are smooth ($C^{\infty}$). 
+
+\subsection{Lie Derivatives, distributions and Frobenius' Theorem}
+
+define vector field and distribution. 
+
+Add Lie derivative, Lie bracket, involutivity, and frobenius thm
+
+
+\subsection{One-forms and codistributions}
+Let $N$ denote a \textit{smooth manifold}, $T_pN $ its \textit{tangent space} at point $p \in N$, and $T^*_pN$ the dual \textit{cotangent space}. If $\{x_1, \dots, x_n\}$ are local coordinates around $p$, then
+ $\{\left.\frac{\partial}{\partial x_1}\right\rvert_p,\dots, \left.\frac{\partial}{\partial x_n}\right\rvert_p \}$ is a basis for $T_pN$ in local coordinates, with the corresponding dual basis denoted $\{dx_1\vert_p, \dots, dx_n\vert_p\}$, with the defining relationship $dx_i\vert_p \left(\left.\frac{\partial}{\partial x_j}\right\rvert_p\right) = \delta_{ij}$. 
+ 
+ Let $s: N \rightarrow \R$ be a smooth function. At every point $p \in N$, the \textit{differential} of $s$ at $p$ is an element of $T^*_pN$, defined via its action on vectors, 
+% , through its action on vectors $X_p \in T_pN$,%. As an element of the dual space, it maps an element $X_p$ of $T_pN$ to a scalar, 
+\begin{align}
+    ds(p)(X_p) & \isdefined X_p(s)(p) \label{def:differential} \\%\qquad X_p \in T_pN, \\
+     & = \left(\sum_{j = 1}^nX_{p, j}\left.\frac{\partial}{\partial x_j}\right\rvert_p\right)s(p) \notag \\
+     & = \sum_{i = 1}^n \left.\frac{\partial s}{\partial x_i} \right\rvert_p X_{p, i}, \notag
+\end{align}
+where we note that vectors are differential operators on real valued smooth functions. 
+
+
+We can endow $ds(p)$ with a representation in terms of the basis of $T^*_pN$ by considering its action on a basis of $T_pN$, which results\footnote{{\color{red}Consider $ds(p)\fracpartial{ }{x_i} = \fracpartial{}{x_i}s(p)$ }} in $ds(p) =\sum_{i = 1}^n \frac{\partial s}{\partial x_i}(p)dx_i\vert_p$. Then, \eqref{def:differential} can be written as \footnote{Noting the linearity of $dx_i$ and right-distributivity of the expression in the first parentheses.}, $ds(p)(X_p) = \left(\sum_{i = 1}^n \frac{\partial s}{\partial x_i}(p)dx_i  \right)\left(\sum_{j = 1}^nX_{p, j}\frac{\partial}{\partial x_j}\right)$. 
+
+The \textit{cotangent bundle} of a manifold $N$ is defined as $T^*N \isdefined \cup_{p\in N}T_p^*N$, and can be given a manifold structure. Then, a \textit{smooth one-form} $\sigma$ on a smooth manifold $N$ is defined as a smooth map $\sigma : N \rightarrow T^*N$ satisfying $$\pi \circ \sigma = \text{identity (on } N),$$ where $\pi: T^*N \rightarrow N$ is the natural projection. That is, a one-form is a smooth map assigning a cotangent vector to each point $p\in N$.
+
+In local coordinates $x$, one forms may be expressed\footnote{With slight abuses of notation, like dropping the hat from the local representative $\hat \sigma$.} as $\sigma(x) = \sum_{i=1}^n \sigma_i(x)dx_i\vert_{x}$. Being dual objects of vector fields, one-forms act on them as expected: $\sigma(X)(p) = \sigma(p)X(p) \in \R$, and define smooth real-valued functions on $N$, $\sigma(X) : N \rightarrow \R$. Any smooth real-valued function $s$ defines a one-form $ds\in T^*N$ via \eqref{def:differential}. Note the relationship with the Lie derivative, $ds(X) = X(s) = L_sX$. Note also that not every one form can be written as $ds$ for some smooth real-valued function $s$. However, those that can, are called \textit{exact}. 
+
+% define distribution and codistribution. 
+% Next, we define the dual of a distribution, the (smooth) codistribution. This will be pivotal in our discussion of nonlinear observability and identifiability. 
+
+Recall that a (smooth) distribution {\color{red}add to that section!} assigns a subspace of the tangent space to each point on the manifold in a smooth manner. Similarly, we can define a dual notion, the smooth codistribution. A smooth codistribution assigns, to each point on the manifold, a subspace of the corresponding cotangent space in a smooth manner (to be made precise below). Just as distributions and accessibility algebras play a fundamental role in describing nonlinear controllability, codistributions and \textit{observation spaces} play a similar role in describing nonlinear observability (and by extension, identifiability). We discuss these ideas in the following sections. 
+
+% {\color{red}A \textit{smooth codistribution} $P$ assigns a linear subspace of $T_p^*N$ to each point $p\in N$ in a smooth manner. More precisely,} 
+\begin{defn}[Smooth Codistribution]
+Around any point $p$, let there exist a neighbourhood $U$ of $p$ and a set of smooth one-forms $\sigma_i \in T^*_pN, i\in I$ ($I$ possibly infinite), such that for each $q \in U$, $P(q) = \text{span}\{\sigma_i(q); i \in I\}$. Then $P$ is called a \textit{smooth codistribution }on $N$. 
+\end{defn}
+
+In what follows, codistribution will always mean smooth codistribution. A one-form belongs to $P(p)$ if $\sigma(p) \in P(p)$ for any $p\in N$, and a codistribution is constant dimensional if the dimension of $P(p)$ does not depend on $p$. If a codistribution is constant dimensional of dimension $l$, then around each point $p$, there exist $l$ independent one-forms (called the \textit{local generators}) $\sigma_1, \dots, \sigma_l$ such that $P(q) = \text{span}\{\sigma_1(q), \dots, \sigma_l(q)\}$, for $q$ near $p$. 
+
+Next, we define the notions of the kernel and annihilator of a codistribution and distribution respectively. Let $P$ and $D$ be a codistribution and distribution on $N$, respectively. Then, 
+\begin{equation}
+    \begin{aligned}
+        \text{ker}P(p) &={} \{X(p) \mid X \text{ is a vector field s.t. } \sigma(X)(p) = 0, \forall \sigma \in P\}\\
+        \text{ann}D(p) &={} \{\sigma(p) \mid \sigma \text{ is a one-form s.t. } \sigma(X)(p) = 0, \forall X \in D\}
+    \end{aligned}   
+\end{equation}
+
+If $D$ and $P$ are constant dimensional, then $D = \text{ker}( \text{ann} D)$ and $P = \text{ann}(\text{ker} P)$. If $\text{ker} P$ is involutive, then we call $P$ an involutive codistribution. If $P$ is generated by exact one forms, then it is easily shown that it must be involutive. 
+
+
+\subsection{Nonlinear Observability}
+Consider the nonlinear system given by 
+\begin{equation}
+    \begin{aligned}
+        \dot x & = {} f(x) + \sum_{j = 1}^m g_j u_j, \qquad u = (u_1, \dots, u_m) \in U\subset \R^m), \\
+        y_i & = {} h_i(x), \qquad i = 1, \dots, p,
+    \end{aligned}\label{eq:system}
+\end{equation}
+where $h = (h_1, \dots, h_p)^T:N\rightarrow Y=\R^p$ and $y(t, x_0, u) = h(x(t, x_0, u))$
+
+We define the notions of state indistinguishability, local observability, observation space and the observability codistribution. We can then state two versions of the nonlinear observability rank condition. These will allow us to talk about decomposing observability into observable and unobservable modes, analogously to the linear case. These results will be extended to include identifiability using a simple device: including system parameters as additional state variables with zero dynamics, and considering their observability. 
+
+\begin{defn}[Nonlinear observability]
+    Two states $x_1, x_2\in N$ are \textit{indistinguishable} for system \eqref{eq:system} if for every admissible input function $u$ the output functions $t\mapsto y(t, x_1, u), t\geq 0$ and $t\mapsto y(t, x_2, u), t\geq 0$ are identical on their common domain of definition. The system is \textit{observable} if the states being indistinguishable implies $x_1=x_2$. 
+\end{defn}
+
+\begin{defn}[Nonlinear local observability]
+    For an open set $V\subset M$, we say that $x_1, x_2 \in V$ are \textit{$V-$indistinguishable}, denoted $x_1 I^V x_2$ if for every admissible \textit{constant} control $u$ such that $x(t, x_1, u)$ and $x(t, x_2, u)$ remain in $V$ for $t\leq T > 0$, the output functions $y(t, x_1, u)$ and $y(t, x_2, u)$ are equal on their common domain of definition. The system \eqref{eq:system} is called \textit{locally observable} at $x_0$ if there exists a neighborhood $W$ of $x_0$ such that for every neighborhood $V\subset W$ of $x_0$ the relation $x_0 I^V x_1$ implies $x_1 = x_0$. A system is locally observable if it is locally observable for all $x_0 \in M$. 
+\end{defn}
+
+A system is locally observable if every state $x_0$ can be distinguished from its neighbors by using system trajectories remaining close to $x_0$. 
+
+\begin{defn}[Observation space]
+    The \textit{observation space} $\mathscr{O}$ of the system \eqref{eq:system} is the linear space (over field $\R$) of real valued smooth functions on $N$ containing $h_i, i = 1, \dots, p$ and all repeated Lie derivatives 
+    \begin{align}
+        L_{X_1}\dots L_{X_k}h_j, \quad j = 1,\dots, p, \quad k = 1,2, \dots
+    \end{align}
+    with $X_i \in \{f, g_1, \dots, g_m\}$. 
+\end{defn}
+
+
+
+\bibliographystyle{unsrtnat}
+\bibliography{refs}
+
+\end{document}
