@@ -1,11 +1,21 @@
 \documentclass[psamsfonts]{amsart}
+\usepackage{geometry}
+\geometry{
+  letterpaper,% redundant if already in \documentclass
+  % left=15mm,
+  % right=15mm,
+  top=1in,
+  bottom=1in,
+  heightrounded,% better use it
+}
 \usepackage[foot]{amsaddr}
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts}
 \usepackage{hyperref}
 
 \setlength{\textwidth}{\paperwidth}
-\addtolength{\textwidth}{-3in}
+% \addtolength{\textwidth}{-2.5in}
+\addtolength{\textwidth}{-2in}
 \calclayout
 
 \hypersetup{
@@ -209,9 +219,16 @@ A system is locally observable if every state $x_0$ can be distinguished from it
     \begin{align}
         L_{X_1}\dots L_{X_k}h_j, \quad j = 1,\dots, p, \quad k = 1,2, \dots
     \end{align}
-    with $X_i \in \{f, g_1, \dots, g_m\}$. 
+    with $X_i \in \{f, g_1, \dots, g_m\}$, $i\in\{1, \dots, k\}$. 
 \end{defn}
 
+\begin{prop}
+$\mathscr{O}$ is equivalent to the linear space of functions on $N$ containing $h_1, \dots, h_p$ and all repeated Lie derivatives along system trajectories. These Lie derivatives can be written $L_{Z_1}L_{Z_2}\cdots L_{Z_k}h_j$, with $j \in \{1, \dots, p\}$ and $k=1, 2, \dots$, and $Z_i$, $i\in \{1, \dots, k\}$ of the form
+\begin{align}
+Z_i(x) = f(x) + \sum_{j = 1}^{m}g_j(x)u_j^i, 
+\end{align} 
+for some point $u^i \in U$. 
+\end{prop}
 
 
 \bibliographystyle{unsrtnat}
