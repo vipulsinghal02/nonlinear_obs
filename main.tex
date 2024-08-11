@@ -15,7 +15,7 @@
 
 \setlength{\textwidth}{\paperwidth}
 % \addtolength{\textwidth}{-2.5in}
-\addtolength{\textwidth}{-2in}
+\addtolength{\textwidth}{-2.5in}
 \calclayout
 
 \hypersetup{
@@ -115,10 +115,10 @@ pdfkeywords={system composability, submanifolds, foliations, system Identificati
 \title{Nonlinear observability and identifiability}
 
 \author{Vipul Singhal$^1$}
-\address{$^1$Genome Institute of Singapore}
+\address{$^1$Integrated Biosciences, Redwood City, CA, United States}
 % \author{Richard Murray$^2$}
 % \address{$^2$Control and Dynamical Systems, California Institute of Technology}
-\email{vipuls@gis.a-star.edu.sg}
+\email{vs@alumni.caltech.edu}
 \begin{document}
 
 \begin{abstract}
@@ -229,7 +229,9 @@ Z_i(x) = f(x) + \sum_{j = 1}^{m}g_j(x)u_j^i,
 \end{align} 
 for some point $u^i \in U$. 
 \end{prop}
-
+\begin{proof}
+The linearity properties of the Lie derivative of a function, $L_{X_1+X_2}H = L_{X_1}H+L_{X_2}H$ and $L_X(H_1+H_2) = L_XH_1 + L_XH_2$, together with the fact that the $Z_i$ are linear combinations of $f, g_1, \dots, g_m$, imply $L_{Z_1}L_{Z_2}\cdots L_{Z_k}h_j \in \mathscr{O}$. Conversely, all vector fields $f, g_1, \dots, g_m$ can be written as linear combinations of vector fields of the form $Z_i$. To see this, note that $f = Z_i$ for $u^i = 0$ for any $i$, and defining $Z_{j}^{+} = f+g_j$ and $Z_{j}^{-} = f-g_j$ (using $u = \pm (0, \dots, 0, 1, 0, \dots, 0)$, where the $1$ is at the $j$-th coordinate), we have $g_j = \frac{1}{2}(Z_{j}^{+}-Z_{j}^{-})$. 
+\end{proof}
 
 \bibliographystyle{unsrtnat}
 \bibliography{refs}
