@@ -117,8 +117,8 @@ pdfkeywords={system composability, submanifolds, foliations, system Identificati
 % \title{Notes on nonlinear observability, with applications in uncertainty quantification for systems biology models}
 \title{A primer on nonlinear observability and identifiability} % for perturbational control of transcriptional states
 \author{Vipul Singhal$^{1}$}
-\address{$^1$Genome Institute of Singapore, Agency for Science, Technology and Research, 60 Biopolis St., Singapore, Republic of Singapore}
-% \address{$^2$Integrated Biosciences, 900 Island Drive, Redwood City, CA 94065, United States}
+% \address{$^1$Genome Institute of Singapore, Agency for Science, Technology and Research, 60 Biopolis St., Singapore, Republic of Singapore}
+\address{$^1$Integrated Biosciences, 900 Island Drive, Redwood City, CA 94065, United States}
 \email{vipuls@gis.a-star.edu.sg}
 \begin{document}
 
@@ -203,6 +203,14 @@ Consider a smooth manifold $N$ and a point $p \in N$, we may define $C^{\infty}(
 The \textit{tangent space} to $N$ at point $p$, denoted by $T_pN$, is defined as the space of derivations on $C^{\infty}(p)$, i.e., the vector space of mappings $X_p: C^{\infty}\rightarrow \R$ satisfying the linearity and Leibniz rule properties defined in Equation \ref{eq:linleibniz}. Elements of this space, denoted $X_p\in T_pN$, are called \textit{tangent vectors}. 
 \end{defn} 
 
+Before we can describe elements of $T_pN$ in local coordinates, we need to define two homomorphisms, the pullback of functions and the pushforward of vectors. 
+
+\begin{defn}[Pullback and Pushforward]
+Let $F:N\rightarrow M$ be a $C^{\infty}$ map of manifolds. Then, for $p\in N$, we the \textit{pullback} $F^*:C^{\infty}(F(p))\rightarrow C^{\infty}(p)$ defined by $F^*(f) = f\circ F$ is a homomorphism of algebras. Its dual vector space homomorphism $F_*:T_pN \rightarrow T_{F(p)}M$, called the \textit{pushforward} and defined by $F_*(X_p)f = X_p(F^*f)$, is a map of $C^{\infty}(F(p))$ to $\R$. If $H = G\circ F$, then $H^* = F^* \circ G^*$ and $H_* = G_* \circ F_*$, and if $F$ is the identity then $F^*$ and $F_*$ are the identity isomorphisms (on their respective domains). 
+\end{defn}
+
+Consider a coordinate chart $(U, \varphi)$ around $p\in N$. 
+Unlike in the case of $T_p\R^n$, we distinguish between $E_{ip}$ and $\frac{\partial}{\partial x^i}$. 
 % Geometrically, we can identify tangent vectors with directional derivatives. Roughly speaking, for $f \in C^{\infty}(p)$, $X_p(f)$ is the derivative of $f$ in the tangent direction $X_p$. Said differently, for a curve $c: (-\epsilon, \epsilon)\rightarrow N$ with $c(0) = p$ and $\frac{dc}{dt}\bigr|_{t=0} = X_p$, we have $X_p(f) = \frac{d(f\circ c)(t)}{dt}\bigr|_{t=0}$.
 
 
@@ -226,15 +234,22 @@ Note that some authors define the tangent bundle without the base point explictl
 % &=\mathrlap{\text{ this line starts with }=}\\
 % &&&+ \text{this line should start at }+ \text{ without using hspace}
 % \end{alignedat}\end{equation*}
-A vector field $X: N \rightarrow TN$ assigns, in a smooth way (to be made precise below), a vector to each point on a manifold. Note that $\pi \circ X = i_N$, the identity on N. Smoothness of this assignment is defined as follows. For $(U, \varphi)$ a chart around a point $p\in N$, and $\{E_{ip}\}_{i = 1}^n$ the basis of $T_pN$, a vector may be written $X_p = \sum_{i = 1}^n \alpha_i(p) E_{ip}$. If $p$ is varied in $U$, so that we consider different vectors in the vector field, the components $\alpha_i$ are real-valued functions on $N$, which we require to be smooth. In local coordinates, we require 
+A vector field $X: N \rightarrow TN$ assigns, in a smooth manner, a vector to each point on a manifold. Smoothness of this assignment is defined as follows. For $(U, \varphi)$ a chart around a point $p\in N$, and $\{E_{ip}\}_{i = 1}^n$ the basis of $T_pN$, a vector may be written $X_p = \sum_{i = 1}^n \alpha_i(p) E_{ip}$. If $p$ is varied in $U$, so that we consider different vectors in the vector field, the components $\alpha_i$ are real-valued functions on $N$, which we require to be smooth. In local coordinates, we require 
 \begin{equation}\label{eq:vectorfieldcoeff}
 \begin{aligned}
-\alpha^i = \alpha^i(x^1, \dots, x^n), \qquad i = 1, \dots, n \text{ on } \varphi(U)\subset \R^n. 
+\alpha^i = \alpha^i(x^1, \dots, x^n), \qquad i = 1, \dots, n, \quad \text{on}\quad \varphi(U)\subset \R^n
 \end{aligned}
 \end{equation} 
-to be $C^{\infty}(\varphi(U))$ (smooth on $\varphi(U)\in \R^n$). 
-\subsection{Lie Derivatives, distributions and Frobenius' Theorem}\label{sec:prelim-frobenius}
+to be smooth, denoted by $\alpha^i \in C^{\infty}(\varphi(U))$. Note also that $\pi \circ X = i_N$, where $i_N$ is the identity on $N$. 
 
+Another very elegant coordinate-free definition of vector fields can be given by endowing $TN$ with the structure of a smooth manifold, with $X:N\rightarrow TN$ a smooth mapping. For each chart $(U, \varphi)$, with local coordinates $x^1, \dots, x^n$ and basis vectors 
+
+, we define a chart $(\tilde U, \tilde \varphi)$ as follows. 
+
+
+This is the approach taken by \cite{nijmeijer_nonlinear_1990}, and I encourage the reader to have a look. 
+
+\subsection{Lie Derivatives, distributions and Frobenius' Theorem}\label{sec:prelim-frobenius}
 
 {\color{red}
 \begin{itemize}
