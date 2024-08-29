@@ -125,9 +125,9 @@ pdfkeywords={system composability, submanifolds, foliations, system Identificati
 \begin{abstract}
 % {\color{red}Note: these notes should be more or less self contained. Do not expect the reader to look things up while reading. It's okay to expect them to know the general gist of differential geometry, and maybe even have studied it in the past. I.e., these notes serve as a very brief primer or a refresher, so that we can talk about nonlinear control ideas. This is not not a first course in diffgeo. Though it is also not a piece of swiss cheese. Make sure there aren't any major holes! (its okay to skip Hausdorff spaces/the difinition of topological manifolds, second countability, etc. )}
 
-A brief set of notes on nonlinear observability and identifiability. We begin with a description of basic ideas from differential geometry (manifolds, Frobenius theorem, distributions and codistributions), and move on to describing the observability-identifiability codistribution. We end with a method for identifying state and parameter variables that are unobservable or non-identifiable. This geometric viewpoint can be used to describe uncertainty in models of gene expression in systems and synthetic biology, which we will explore in a subsequent work. 
+A brief set of notes on nonlinear observability and identifiability. We begin with a description of basic ideas from differential geometry (manifolds, Frobenius theorem, distributions and codistributions), and move on to describing the observability-identifiability codistribution. We end with a method for identifying state and parameter variables that are unobservable or non-identifiable. %This geometric viewpoint is then used to describe uncertainty in models of gene expression in systems and synthetic biology. We also describe the accessibility algebra associated with a perturbed system, which motivates a theory of nonlinear controllability for genetic networks. We end by describing \textit{minimal realizations} of nonlinear control systems, and as a corollary, gene regulatory networks. %and discuss the possibility of controlling the transcriptomic and proteomic state of cells by over and under expressing genes and manipulating signaling pathways. 
 
-Optionally (not sure yet) I will describe the accessibility algebra and nonlinear controllability. We can then unify everything into \textit{minimal realizations} of nonlinear control systems. %and discuss the possibility of controlling the transcriptomic and proteomic state of cells by over and under expressing genes and manipulating signaling pathways. 
+
 % \noindent \textbf{Keywords.} system composability, submanifolds, foliations, system identification, genetic circuits, machine learning, manifold learning
 % diffusion maps, polynomial ideals, parameter variety, graph laplacian
 \end{abstract}
@@ -200,9 +200,9 @@ The vector space $T_p\R^n$ is isomorphic to the vector space $\mathscr{D}(p)$ of
 
 Using this isomorphism, we can \textit{identify} $T_p\R^n$ with $\mathscr{D}(p)$. We write vectors as linear combinations of basis vectors, $X_p = \sum_{i = 1}^n \alpha^i \frac{\partial}{\partial x^i}\bigr|_p$, so that the $E_{ip}$ are identified with $\frac{\partial}{\partial x^i}\bigr|_p$, and $E_{ip}f = \frac{\partial f }{ \partial x^i}\bigr|_p$. Note that $X_p x^i = \alpha^i$, so that $X_p$ is completely determined by its action on the coordinate functions, $x^i$. This equivalence between derivations on functions and the tangent space will be especially useful in defining the tangent space to manifolds, a topic we cover next. 
 
-Consider a smooth manifold $N$ and a point $p \in N$, we may define $C^{\infty}(p)$ as the algebra of smooth real-valued functions whose domain of definition contains some neighbourhood of $p$. The tangent space to $N$ at $p$ may then be defined using derivations. 
+Consider a smooth manifold $N$ and a point $p \in N$. We may define $C^{\infty}(p)$ as the algebra of smooth real-valued functions whose domain of definition contains some neighbourhood of $p$, with functions identified if they agree on any neighbourhood of $p$. The tangent space to $N$ at $p$ may then be defined using derivations. 
 \begin{defn}[Tangent Space of $N$]\label{def:tangentspace}
-The \textit{tangent space} to $N$ at point $p$, denoted by $T_pN$, is defined as the space of derivations on $C^{\infty}(p)$, i.e., the vector space of mappings $X_p: C^{\infty}\rightarrow \R$ satisfying the linearity and Leibniz rule properties defined in Equation \ref{eq:linleibniz}. Elements of this space, denoted $X_p\in T_pN$, are called \textit{tangent vectors}. 
+The \textit{tangent space} to $N$ at point $p$, denoted by $T_pN$, is defined as the space of derivations on $C^{\infty}(p)$, i.e., the vector space of mappings $X_p: C^{\infty}(p)\rightarrow \R$ satisfying the linearity and Leibniz rule properties defined in Equation \ref{eq:linleibniz}. Elements of this space, denoted $X_p\in T_pN$, are called \textit{tangent vectors}. 
 \end{defn} 
 
 Before we can describe elements of $T_pN$ in local coordinates, we need to define two homomorphisms, the pullback of functions and the pushforward of vectors. 
@@ -218,12 +218,10 @@ A corollary of the last statement in Definition \ref{def:pushforward} is that pu
 E_{ip} &={} \varphi^{-1}_*\left(\frac{\partial}{\partial x^i}\biggr|_a\right) 
 \end{aligned}
 \end{equation}
-The basis $\left\{E_{ip}\right\}_{i=1}^n$ is called a \textit{coordinate frame} of $T_pU$, and notice that unlike in the $T_p\R^n$ case discussed previously, here we distinguish between the $E_{i(\cdot)}$ and $\frac{\partial}{\partial x^i}$ (though they are equivalent up to isomorphism, {\color{red}and will be used interchangeably in the sequel) $\leftarrow$ check this later.}. 
+The basis $\left\{E_{ip}\right\}_{i=1}^n$ so defined is called a \textit{coordinate frame} of $T_pU$. Notice that unlike in the $T_p\R^n$ case discussed previously, here we distinguish between the $E_{i(\cdot)}$ and $\frac{\partial}{\partial x^i}$, although these are equivallent up to isomorphism. In fact, this isomorphism allows us to reduce the study of $T_pU$ to the study of $T_{a}\R^n$. Note also that $\frac{\partial}{\partial x^i}x^j = \delta_{i}^j$, the Kronecker delta. 
+% though they are equivalent up to isomorphism, {\color{red}and will be used interchangeably in the sequel) $\leftarrow$ check this later.}. 
 
 % Geometrically, we can identify tangent vectors with directional derivatives. Roughly speaking, for $f \in C^{\infty}(p)$, $X_p(f)$ is the derivative of $f$ in the tangent direction $X_p$. Said differently, for a curve $c: (-\epsilon, \epsilon)\rightarrow N$ with $c(0) = p$ and $\frac{dc}{dt}\bigr|_{t=0} = X_p$, we have $X_p(f) = \frac{d(f\circ c)(t)}{dt}\bigr|_{t=0}$.
-
-
-
 
 \subsection{Vector Fields and Distributions}
 The tangent bundle associated with a manifold is defined as the disjoint union of individual tangent spaces (i.e., keeping track of the base points in addition to the tangent spaces themselves), 
