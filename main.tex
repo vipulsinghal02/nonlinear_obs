@@ -14,8 +14,8 @@
 \usepackage{hyperref}
 
 \setlength{\textwidth}{\paperwidth}
-% \addtolength{\textwidth}{-3in}
-\addtolength{\textwidth}{-2.5in}
+\addtolength{\textwidth}{-3in}
+% \addtolength{\textwidth}{-2.5in}
 % \addtolength{\textwidth}{-1in}
 \calclayout
 
@@ -117,10 +117,10 @@ pdfkeywords={system composability, submanifolds, foliations, system Identificati
 % \title{Model outputs foliate parametric uncertainty}
 % \title{Notes on nonlinear observability, with applications in uncertainty quantification for systems biology models}
 \title{A primer on nonlinear observability and identifiability} % for perturbational control of transcriptional states
-\author{Vipul Singhal$^{1}$}
-\address{$^1$Genome Institute of Singapore, Agency for Science, Technology and Research, 60 Biopolis St., Singapore, Republic of Singapore}
+\author{Vipul Singhal}
+% \address{$^1$Genome Institute of Singapore, Agency for Science, Technology and Research, 60 Biopolis St., Singapore, Republic of Singapore}
 % \address{$^1$Integrated Biosciences, 900 Island Drive, Redwood City, CA 94065, United States}
-\email{vipuls@gis.a-star.edu.sg}
+\email{vs@alumni.caltech.edu}
 \begin{document}
 
 \begin{abstract}
@@ -157,7 +157,7 @@ A related convention is that vectors, when indexed, will always have subscripts 
 Roughly speaking, a smooth manifold is a set which is locally Euclidean---in the sense that neighborhoods of points can be modeled using Euclidean spaces---along with a certain \textit{differentiable structure}, which we describe below.\footnote{Our description will omit certain technical details, like the underlying topological space needing to have a second countable basis of open sets, and being Hausdorff. While important in their own right, these details do not usually make an appearance in proofs, and can safely be skipped in a first reading of nonlinear control. The interested reader can find them in any differential geometry text, such as \cite{abraham_manifolds_1988}.} We use the symbol $N$ to denote an $n$-dimensional smooth ($C^{\infty}$) manifold, and the tuples $(U, \varphi)$ and $(V, \phi)$ to denote coordinate charts, where $U$ and $V$ are open sets in $N$ (which exist by virtue of $N$ being a Hausdorff topological space) and the homeomorphisms $\varphi$ and $\phi$ map them (respectively) onto open sets in $\R^n$. The key component of $N$'s differentiable structure is the following compatibility requirement for coordinate changes: whenever $U \cap V$ has a nonempty interior, the map $\phi\circ\varphi^{-1}: \varphi(U\cap V) \rightarrow \phi(U\cap V)$ is a (smooth) diffeomorphism. %This requirement is the critical aspect of what is known as the differentiable structure of a manifold, and turns the topological manifold into a \textit{smooth manifold}. 
 % (which is used to define the differentiable structure of $N$, turning the topological manifold into a \textit{smooth manifold})
 
-A point $p\in U$ in local coordinates will typically be denoted by $a = \varphi (p) = (x^1(p), \dots, x^n(p)) \in \R^n$, where the $x^i: U \rightarrow \R$ are called the \textit{coordinate functions} corresponding to a given $\varphi$. Coordinate neighborhoods can therefore also be denoted by $(U, x^1, \dots x^n)$. 
+A point $p\in U$ in local coordinates will typically be denoted by $a = \varphi (p) = (x^1(p), \dots, x^n(p)) \in \R^n$, where the $x^i: U \rightarrow \R$ are the ($C^{\infty}$) \textit{coordinate functions} corresponding to a given $\varphi$. Coordinate neighborhoods can therefore also be denoted by $(U, x^1, \dots x^n)$. 
 
 The local representative of a map $f:U\rightarrow \R$ is constructed as $\hat f \triangleq f\circ \varphi^{-1}$, so that 
 \begin{align}\label{eq:localrep}
@@ -240,7 +240,7 @@ TN & = {} \bigsqcup_{p \in N} T_pN\\
 One defines the natural projection $\pi : TN \twoheadrightarrow N : (p, v) \mapsto p$. %, which, in our case, looks like $(p, X_p) \mapsto \pi((p, X_p)) = p$. 
 Note that some authors define the tangent bundle without the base point explictly included, $TN = \cup_{p\in N}T_pN$, with projection $v \mapsto \pi(v) = p$ for $v \in T_pN$. Note also that in some cases, it is possible to find an isomorphism between the tangent bundle and the Cartesian product of the base space and any tangent space, such as $T\R^n \cong \R^n \times \R^n$ or $T\mathbb{S}^1 \cong \mathbb{S}^1 \times \R$. In this case, the tangent bundle is called the \textit{trivial bundle}. In general, however, such a decomposition will not exist (the most common example being $T\mathbb{S}^2$), and we will always use the definition in equation \ref{eq:tangentbundle}. The tangent bundle plays an instrumental role in the definition of (smooth) vector fields on manifolds. 
 
-\subsubsection{Pushforward and $T_pN$ in local coordinates}
+\subsubsection{Pushforward (differential) of a map}
 Before we can describe elements of $T_pN$ in local coordinates, we need to define two homomorphisms, the pullback of functions and the pushforward of vectors. 
 
 \begin{defn}[Pullback and Pushforward]\label{def:pushforward}
@@ -256,20 +256,102 @@ E_{ip} &\triangleq{} \varphi^{-1}_*\partial_{ia}.
 \end{equation}
 
 
-The basis $\{E_{ip}\}_{i=1}^n \subset T_pU$ is called a {coordinate frame} at $p\in U$, and the \textit{coordinate frames on $U$} comprise the collection of all such bases, $\left\{ \{E_{ip}\}_{i=1}^n \; \bigr| \;p\in U \right\} \subset TU$. When referring the frames on $U$ as a whole, or to an arbitrary frame, we will use the symbols $E_1, \dots, E_n$, or $\partial_1, \dots, \partial_n$ in local coordinates, without the subscript $p$. Notice that unlike in the $T_p\R^n$ case discussed previously, here $\{E_{i}\}_{i = 1}^n$ and $\{\partial_{i}\}_{i = 1}^n$ are not {identified} with each other, although are equivalent via isomorphism, which reduces the study of $T_pU$ to the study of $T_{a}\R^n$. Note also that $\partial_i x^j = \delta_{i}^j$, where $\delta^i_j = 1$ if $i=j$ and $0$ otherwise (the Kronecker delta). 
-% though they are equivalent up to isomorphism, {\color{red}and will be used interchangeably in the sequel) $\leftarrow$ check this later.}. 
+The basis $\{E_{ip}\}_{i=1}^n \subset T_pU$ is called a {coordinate frame} at $p\in U$, and the \textit{coordinate frames on $U$} comprise the collection of all such bases, $\left\{ \{E_{ip}\}_{i=1}^n \; \bigr| \;p\in U \right\} \subset TU$. When referring the frames on $U$ as a whole, or to an arbitrary frame (with base point $p$ unspecified), we will use the symbols $E_1, \dots, E_n$, or $\partial_1, \dots, \partial_n$ in local coordinates. Notice that unlike in the $T_p\R^n$ case discussed previously, $\{E_{i}\}_{i = 1}^n$ and $\{\partial_{i}\}_{i = 1}^n$ are not {identified} with each other, although are equivalent via isomorphism, which reduces the study of $T_pU$ to the study of $T_{a}\R^n$. 
 
+Given $f\in C^{\infty}(p)$ with local representative $\hat f = f\circ \varphi^{-1}$, we have $E_{ip}f = \partial_{ia}\hat f$. In particular, for coordinate functions $x^j$, we have $E_i x^j = \partial_i \hat x^j = \delta_{i}^j$, where $\delta^i_j = 1$ if $i=j$ and $0$ otherwise (the Kronecker delta). A vector may then be written $X_p = \alpha^i E_{ip}$, with $\alpha^i = X_p x^i$. 
 With these definitions, we can express $X_pf$ in local coordinates, 
 \begin{equation}
 \begin{aligned}
-X_pf(p) & = {} \alpha^i E_{ip}f(p) \\
-& = {} \alpha^i (\varphi_* E_{ip})(\varphi^{-1*}f)(\varphi(p))\\
-& = {} \alpha^i \left(\partial_{ia}\hat f\right)(a),%\qquad a = \varphi(p)\\
+X_pf(p) & = {} \alpha^i E_{ip}f(p) = {} \alpha^i (\varphi_* E_{ip})(\varphi^{-1*}f)(\varphi(p)) = {} \alpha^i \left(\partial_{ia}\hat f\right)(a),%\qquad a = \varphi(p)\\
 % & = {} \alpha^i \frac{\partial \hat f}{\partial x^i}(a)
 \end{aligned}
 \end{equation}
 or, dropping the caret, $X_p f(p) = \alpha^i\partial_{ia} f(a)$. 
 % Geometrically, we can identify tangent vectors with directional derivatives. Roughly speaking, for $f \in C^{\infty}(p)$, $X_p(f)$ is the derivative of $f$ in the tangent direction $X_p$. Said differently, for a curve $c: (-\epsilon, \epsilon)\rightarrow N$ with $c(0) = p$ and $\frac{dc}{dt}\bigr|_{t=0} = X_p$, we have $X_p(f) = \frac{d(f\circ c)(t)}{dt}\bigr|_{t=0}$.
+
+Next, we give an important theorem that describes the mapping $F_*:T_pN \rightarrow T_{F(p)}M$ in terms of coordinates and frames.  %Let $U, \varphi$ and $V, \phi$ be charts on $N$ and $M$ respectively, with $F(U)\subset V$. Let $a = \varphi(p) = (x^1, \dots, x^n)$, and $(y^1, \dots, y^m) = \phi \circ F \circ \varphi^{-1}(x^1, \dots, x^n)$ for $i=1, \dots, n$ be the local representatives, and $E_{ip} = \varphi^{-1}_* \partial_{x^i}$ and $\tilde E_{jF(p)} = \phi^{-1}_* \partial_{y^j}$ be the bases of the respective tangent spaces. 
+
+Let $U, \varphi = (x^1, \dots, x^n)$ and $V, \phi = (y^1, \dots, y^m)$ be charts (coordinate functions stated explicitly) on $N$ and $M$ respectively, with $F(U)\subset V$, $a = \varphi(p) = (x^1, \dots, x^n)$. Let the local representative of $F(p)$ be $f(a) = \phi \circ F \circ \varphi^{-1}(x^1, \dots, x^n)$, with components given by $f^j(x^1, \dots, x^n) = y^j(F\circ \varphi^{-1}(x^1, \dots, x^n))$. Some authors use the symbols $f^j$ and $y^j$ interchangeably, but note that their domains are different---$\varphi(U)$ and $V$ respectively---and one must use context to understand what is going on. Fortunately we will not be sloppy in this way; this will come at the cost of slightly increased verbosity. Furthermore, in this section we will distinguish the local representatives of the bases of $T_pN$ and $T_{F(p)}M$ by writing them out in full: $\frac{\partial}{\partial x^i}$ and $\frac{\partial}{\partial y^j}$. 
+
+\begin{thm}\label{thm:pushforward_in_lr}
+Define $E_{ip} = \varphi^{-1}_* \left(\partial / \partial {x^i}\right)$ and $\tilde E_{jF(p)} = \phi^{-1}_* \left(\partial /\partial {y^j}\right)$ (over all $i, j$) as the bases of their respective tangent spaces. Then, 
+\begin{align}
+F_*(E_{ip}) = \left(\frac{\partial f^j}{\partial x^i}\right)_{\varphi(p)}\tilde E_{jF(p)}, \qquad i = 1, \dots, n.
+\end{align}
+Furthermore, if $\beta^j \tilde E_{jF(p)} = F_*(\alpha^i E_{ip})$, then the components are related by 
+\begin{align}
+\beta^j = \alpha^i\frac{\partial f^j}{\partial x^i}, \qquad j = 1, \dots, m.
+\end{align}
+\end{thm}
+\begin{proof}
+We are looking for an expression for $F_*(E_{ip})$ in terms of the basis $\tilde E_{jF(p)}$, $j = 1, \dots, m$. Recall that the components of a vector may be obtained by its action on coordinate functions:
+\begin{equation}
+\begin{aligned}
+F_*(E_{ip})y^j & = \left(F_*\circ \varphi^{-1}_* \left(\frac{\partial}{\partial x^i}\right)_{\varphi(p)}\right)y^j= \frac{\partial}{\partial x^i}\biggr|_{\varphi(p)}(y^j\circ F \circ \varphi^{-1}) = \left(\frac{\partial f^j}{\partial x^i}\right)_{\varphi(p)}
+\end{aligned}
+\end{equation}
+Thus, $F_*(E_{ip}) = \left(\frac{\partial f^j}{\partial x^i}\right) \tilde E_{jF(p)}$. The second part follows by recalling the linearity of $F_*$ and collecting terms, and is left as an exercise for the reader. 
+\end{proof}
+
+The terms $\frac{\partial y^j}{\partial x^i}$ form the \textit{Jacobian} matrix, and as such, $F_*$ is also known as the \textit{differential} of $F$, denoted by $dF$. 
+
+\subsubsection{The tangent velocity vector}\label{sec:tangent_velo}
+The pushforward allows us to define the notion of the tangent \textit{velocity vector} to a curve. Roughly speaking, given a {curve} $F:(a,b)\rightarrow N$, the pushforward of the vector $\partial_{t, t_0} \triangleq \frac{d}{dt} \bigr|_{t_0}\in T_{t_0}(a,b)$ via $F_*$ results in the velocity vector $F_*(\partial_{t, t_0})\in T_{F(t_0)}N$; we can think of this as ``differentiating'' $F$ with respect to $t$ (at $t_0$). Formally, we proceed as follows. 
+
+Consider manifolds $M = (a,b)\subset \R$, $N$, a map $F:M\rightarrow N$, and note that $\partial_{t,t_0}$ is a basis for $M$ at $t_0$. Let $p=F(t_0)$, and $f\in C^{\infty}(p)$, so that the {velocity vector} to the curve at $p$ is defined by 
+\begin{align}\label{eq:velocityvec}
+F_*\left(\partial_{t,t_0}\right)f = \partial_t\left(f\circ F\right)_{t_0}
+\end{align}
+Given a chart $p \ni U, \varphi = (x^1, \dots, x^n)$, so that in local coordinates $\hat F = (f^1(t), \dots, f^n(t)) \triangleq (x^1\circ F(t), \dots, x^n \circ F(t))$. 
+% We can then write $F_*(\partial_{t, t_0}) x^i = \partial_{t}(x^i \circ F)_{t_0}$. 
+Then, we may extract the $i$-th component of the velocity vector as $F_*(\partial_{t, t_0}) x^i ={} \partial_{t}(x^i \circ F)_{t_0} = \dot{f}^i$,
+% \begin{equation}\label{eq:velocitypushforward}
+% \begin{aligned}
+% F_*(\partial_{t, t_0}) x^i &={} \partial_{t}(x^i \circ F)_{t_0} = \dot{f^i}, 
+% \end{aligned}
+% \end{equation}
+with the dot indicating the derivative with respect to the variable $t$ (often interpreted as time). The velocity vector may then be expanded in the basis of $T_pN$ as $F_*(\partial_{t, t_0}) = \dot f^i(t_0)E_{ip}$. 
+
+\subsubsection{Generalizing to arbitrary parameterizations} The setup in the previous section discussed a parameterization and tangent space (spanned by the velocity vector) of a one dimensional submanifold of $N$. 
+%Given an interval $U = (a,b)$, a curve $F:U\rightarrow N$ is a one-dimensional submanifold $F(U)$ of $N$, and is parameterized by a single variable $t\in (a, b)$. 
+This is a special case of arbitrary (finite) dimensional parameterizations, which we describe next. 
+
+Consider an $n$-dimensional manifold $N\subset \R^m$, with $n<m$, an open set $W\subset \R^n$, and a parameterization (imbedding) $\theta: W\rightarrow N$ of a neighbourhood $V = \theta(W)$ in $N$. In fact, $V, \theta^{-1}$ is a chart on $N$. Let $u^1, \dots, u^n$ be the natural (global) coordinates in $\R^n$ (and therefore also on $W$) and let $x^1, \dots, x^m$ be the natural coordinates in $\R^m$ (and therefore also $V$, despite it only being $n$-dimensional). The (global) coordinate frames are $\left\{\partial / \partial u^1, \dots, \partial / \partial u^n\right\} \subset T\R^n $ and $\left\{\partial / \partial x^1, \dots, \partial / \partial x^m\right\} \subset T\R^m$. 
+% Let the local coordinates on $W$ be denoted by $u^i$, $i = 1, \dots, n$, and consider the chart $V, \phi = (x^1, \dots, x^n)$.   
+%cannot do this because we want a separate chart for x^i and y^i coordinate functions. 
+% and a chart $U, \theta^{-1}$ on $N$. Let $W = \theta^{-1}(U)$ be an open neighbourhood in $\R^n$, so that $\theta: W\rightarrow N$ is an embedding of $W$ into $\R^m$. 
+% Let $x^1, \dots, x^n$ and $y^1, \dots, y^n$ be the coordinate functions on $W$ and $U$ respectively, and 
+The local representative of $\theta$ may be written in components as $x^j = \theta^j(u^1, \dots, u^n)$ for $j = 1, \dots, m$, and we know from Theorem \ref{thm:pushforward_in_lr} that at a point $\theta(u_0)\in V$, we have
+\begin{equation}\begin{aligned}\label{eq:parameterized_tangent_vec}
+ \left(X_{u^i}\right)_0 \triangleq \theta_*\left( \frac{\partial}{\partial u^i}\biggr|_{u_0}\right) = \left(\frac{\partial \theta^j}{\partial u^i}\right)_{u_0} \frac{\partial}{\partial {x^{j}}}\biggr|_{\theta(u_0)}.
+ \end{aligned}\end{equation}
+% \begin{equation}\begin{aligned}
+% \theta_*\left( \frac{\partial}{\partial u^i}\biggr|_{u_0}\right) & = {} \frac{\partial f^j}{\partial u^i} \biggr|_{u_0} E_{j\theta(u_0)}, 
+% \end{aligned}\end{equation}
+% \begin{equation}\begin{aligned}
+% \theta_*\left( \frac{\partial}{\partial u^i}\right) & = {} \frac{\partial f^j}{\partial u^i} E_{j}, 
+% \end{aligned}\end{equation}
+Due to the linearity of $\theta_*$, we have %A vector $X_{u_0}=\alpha^i \frac{\partial}{\partial u^i}\bigr|_{u_0}$ transforms as 
+\begin{equation}\begin{aligned}
+\theta_* \left(\alpha^i \frac{\partial}{\partial u^i}\biggr|_{u_0}\right) &={} \alpha^i \left(\frac{\partial \theta^j}{\partial u^i}\right)_{u_0} \frac{\partial}{\partial {x^{j}}}\biggr|_{\theta(u_0)}\\
+&=: \beta^j \frac{\partial}{\partial {x^{j}}}\biggr|_{\theta(u_0)}
+\end{aligned}\end{equation}
+so that $\beta^j = \alpha^i \left({\partial \theta^j}/{\partial u^i}\right)_{u_0}$. 
+
+Because $\theta$ is an imbedding, the Jacobian $\left(\partial \theta^j / \partial x^i\right)_{u_0}$ has rank $n$ (see the definitions of immersion and imbedding in \cite{boothby_2002} for details\footnote{{\color{red}replace with ref to the imbedding / rank theorem section above if/when that becomes available.}}), and thus the $ \left(X_{u^i}\right)_0$, $i=1,\dots, n$ span $T_{\theta(u_0)}N$ which is a subspace of $T_{\theta(u_0)}\R^m$. Note that another standard description of tangent plane at a point $\theta(u_0)$ is the collection of all tangent vectors at that point to curves passing through that point which lie in $N$. To give a little more detail, we proceed as follows. 
+
+Let $I = (a, b) \ni t_0$, and consider a curve $F = \left(f^1, \dots, f^n\right) : I \rightarrow W$, with $u_0 = F(t_0)$ and the corresponding curve on $N$ given by 
+\begin{align}
+\theta \circ F(t) = \left(\theta^1(f^1(t), \dots, f^n(t)), \dots, \theta^m(f^1(t), \dots, f^n(t))\right)
+\end{align}
+The pushforward of $\partial_{t}$ via this curve (with things evaluated at $t_0$, $F(t_0)$ and $\theta(F(t_0))$ is
+\begin{equation}\begin{aligned}\label{eq:parameterized_tangent_plane}
+\left(\theta\circ F\right)_* \partial_{t} &={} \partial_{t}\left(\theta^j\left(f^1(t), \dots, f^n(t)\right)\right)\frac{\partial}{\partial x^j}\\
+&={} \frac{\partial \theta^j}{\partial u^i}\frac{d f^i}{dt}\frac{\partial}{\partial x^j}\\
+&={} \dot f^i \left(\frac{\partial \theta^j}{\partial u^i}\frac{\partial}{\partial x^j}\right)\\
+&={} \dot f^i X_{u^i}, \qquad \text{by Eq. \ref{eq:parameterized_tangent_vec}.}
+\end{aligned}\end{equation}
+Consider the coordinate curve, obtained by setting (along the first coordinate, say, without losing generality) $f^1(t) = t$ and $f^j(t) = u^j_0$ for $j = 2, \dots, n$. Then, Eq. \ref{eq:parameterized_tangent_plane} reduces to $\left(\theta\circ F\right)_* \partial_{t} = X_{u^1}$. Now observe that the $(X_{u^j})_0$ are the coordinate frame vectors (in $T_{\theta(F(t_0))}N$) corresponding to the chart $V, \theta^{-1}$ on $N$. \textit{Thus, the coordinate frame vectors are tangent to the coordinate curves.}
 
 \subsection{Vector fields, flows, and the Lie derivative}
 
@@ -289,10 +371,17 @@ A vector field $X: N \rightarrow TN$ assigns a vector to each point on a manifol
 \alpha^i = \alpha^i(x^1, \dots, x^n), \qquad i = 1, \dots, n, \quad \text{on}\quad \varphi(U)\subset \R^n
 \end{aligned}
 \end{equation} 
-to be smooth, denoted by $\alpha^i \in C^{\infty}(\varphi(U))$. The requirement $\pi \circ X = i_N$ in Definition \ref{def:vectorfield} is there to ensure that a given vector in the vector field lies in the tangent space with the correct base point.% (which can be ambiguous in the case of trivial bundles; not so much for the definition in \ref{eq:tangentbundle}). %The stipulation $\pi \circ X = i_N$ becomes necessary if one defines $TN$ to be a simple (non-disjoint) union of all tangent spaces, $TN = \cup_{p\in N}T_pN$. 
+to be smooth, denoted by $\alpha^i \in C^{\infty}(\varphi(U))$. Note that the coordinate frames $E_1, \dots, E_n$ on $U$ are independent vector fields, and one refers to them as the \textit{field of frames} on $U$. 
 \begin{rem}
-The coordinate frames on $U$ are independent vector fields, and one talks about the \textit{field of frames} $E_1, \dots, E_n$ on $U$. 
+In Definition \ref{def:vectorfield}, the requirement 
+\begin{align}\label{eq:sectionproperty}
+\pi \circ X &= i_N
+\end{align}
+ is there to ensure that a given vector in the vector field lies in the tangent space with the correct base point. At a more abstract level, a tangent bundle is an example of a \textit{fiber bundle}, and a vector field is an example of a \textit{smooth section} of this bundle, satisfying the property \ref{eq:sectionproperty}. Other examples of sections appear in differential geometry too, such as the dual notion of a one-form, which is a (smooth) section of the cotangent bundle (see Section \ref{sec:1FandCodistrib}). 
+% (which can be ambiguous in the case of trivial bundles; not so much for the definition in \ref{eq:tangentbundle}). %The stipulation $\pi \circ X = i_N$ becomes necessary if one defines $TN$ to be a simple (non-disjoint) union of all tangent spaces, $TN = \cup_{p\in N}T_pN$. 
 \end{rem}
+
+
 A coordinate-free definition of vector fields can be given by endowing $TN$ with the structure of a smooth manifold, with $X:N\rightarrow TN$ a smooth mapping. In this scenario, a chart $(U, \varphi) = (U, x^1, \dots, x^n)$ induces a chart $(\pi^{-1}(U), \varphi_*)$ on $TN$. For $X_p\in \pi^{-1}(U)$, expanded as $X_p = \alpha^i E_{ip}$, its local representative in $\varphi_*(\pi^{-1}(U))$ is written as $\hat X_a = \alpha^i \partial_{ia} = (x^1, \dots, x^n, \alpha^1, \dots, \alpha^n)$. One then argues that the natural projection $\pi:TN\rightarrow N$ is a $C^{\infty}$ map between manifolds, and so is $X$ as a map from $N$ into $TN$; see \cite{nijmeijer_nonlinear_1990} and the exercises 5-7 in \cite{boothby_2002} Section IV.2 for details. 
 
 
@@ -308,20 +397,71 @@ The \textit{$C^{\infty}$ action} $\theta:\R \times N \rightarrow N$ of $\R$ on a
 \end{equation}
 \end{defn}
 
-We note that this is an example of a one-parameter Lie group ($\R$) acting on a smooth manifold, where the group operation ($+$) is a smooth map, and the identity element is $0$. 
+We note that this is an example of a one-parameter Lie group ($\R$) acting on a smooth manifold, where the group operation ($+$) is a smooth map, and the identity element is $0$. The \textit{orbit} of a point $p$ is the set $\text{orb}_{\theta}(p) \triangleq \left\{\theta_t(p) \mid t\in \R \right\}$. 
 
 \begin{defn}
-Given Definition \ref{defn:cinfaction}, the \textit{infinitesimal generator} of $\theta$ is defined as a vector field $X_p:C^{\infty}\rightarrow N$ such that for each $p\in N$, 
+Given Definition \ref{defn:cinfaction}, the \textit{infinitesimal generator} of $\theta$ is defined as a vector field $X:N\rightarrow TN$ such that for each $p\in N$ and $f\in C^{\infty}(p)$, 
 \begin{align}
 X_pf = \lim_{\Delta t \rightarrow 0}\frac{f\left(\theta_{\Delta t}(p)\right)-f(p)}{\Delta t}
 \end{align}
 \end{defn}
+\begin{thm}The infinetesimal generator of an action is invariant under that action; that is, $\theta_{t*}X_p = X_{\theta_{t}(p)}$.\end{thm} 
+\begin{proof} Consider $f\in C^{\infty}(\theta_t(p))$, and 
+\begin{equation}\begin{aligned}\label{eq:infgen_invariance}
+\theta_{t*}(X_p)f &={} X_p\left(f\circ \theta_t\right)\\
+&={} \lim_{\Delta t \rightarrow 0}\frac{f\circ \theta_t\left(\theta_{\Delta t}(p)\right)-f\circ \theta_t(p)}{\Delta t}\\
+&={} \lim_{\Delta t \rightarrow 0}\frac{f\circ \theta_{\Delta t}\left(\theta_{t}(p)\right)-f(\theta_t(p))}{\Delta t}\\
+&={} X_{\theta_t(p)}f, 
+\end{aligned}\end{equation}
+where we have used the fact that $\R$ is an Abelian group to swap the order of $\Delta t$ and $t$ in the penultimate line. \end{proof}
+
+\begin{cor}\label{prop:gen_on_orbits_alts}
+If $X_p=0$, then for each $q\in \text{orb}_{\theta}(p)$, $X_q=0$.
+\end{cor}
+\begin{proof}
+ This follows from the fact that $\theta_t$ is a diffeomorphism (being a $C^{\infty}$ action of a Lie group on a smooth manifold),\footnote{See Section III.7 in \cite{boothby_2002}} which implies that $\theta_{t*}$ is an isomorphism of $T_{p}N$ onto $T_{\theta_t(p)}N$, so that $X_{\theta_t(p)}=\theta_{t*}X_p = 0$ if and only if $X_p=0$. 
+ \end{proof}
+
+\begin{thm}
+Depending on whether or not $X_p=0$, $\text{orb}_{\theta}(p)$ is either just $\{p\}$ or an immersion of $\R$ in $N$. 
+\end{thm}
+\begin{proof}
+Parameterize $\text{orb}_{\theta}(p)$ using parameter $t$ by writing $F(t) = \theta_t(p)$. Consider an arbitrary point $t_0\in \R$, and the vector $\partial_{t, t_0}\triangleq \frac{d}{dt}\bigr|_{t_0}$, which is a basis of $T_{t_0}\R$. 
+ From the rank theorem, we know that $F$ is an immersion if and only if $F_*\partial_{t, t_0)} \neq 0$ for all $t_0\in \R$ (i.e., the Jacobian describing $F_*$ has a (constant) rank of $1$ at all points on $\R$).\footnote{{\color{red}oct 7 '24: need to write at least high level / brief notes on the rank of a mapping, immersion and imbedding. }} Now consider $f\in C^{\infty}(F(t_0))$, and using the fact that $\R$ is Abelian, we have 
+ \begin{equation}\begin{aligned}\label{eq:orbit_immersion}
+F_*(\frac{d}{dt}\biggr|_{t_0})f = \frac{d}{dt}\left(f\circ F\right)_{t_0} &={} \lim_{\Delta t \rightarrow 0}\frac{f\circ F\left(t_0 + \Delta t\right)-f\circ F(t_0)}{\Delta t}\\
+&={} \lim_{\Delta t_0 \rightarrow 0}\frac{f\circ \theta_{t_0+\Delta t}(p)-f\circ \theta_{t_0}(p)}{\Delta t}\\
+&={} \lim_{\Delta t \rightarrow 0}\frac{f\circ \theta_{\Delta t}\left(\theta_{t_0}(p)\right)-f\left(\theta_{t_0}(p)\right)}{\Delta t}\\
+&={} X_{\theta_{t_0}(p)}f. 
+\end{aligned}\end{equation}
+% Note that while Eqs. \ref{eq:infgen_invariance} and \ref{eq:orbit_immersion} look similar, the pushforward maps $\theta_{t*}$ and $F_*$ are different (their domains being $T_{t_0}\R$ and $T_{p}N$ respectively, in particular). 
+Now, if $X_q \neq 0$ for any $q\in \text{orb}_{\theta}(p)$, then by Corollary \ref{prop:gen_on_orbits_alts}, then $X_{\theta_{t_0}(p)}$ is nonzero at all $t_0$, and $F$ is indeed an immersion. On the other hand, if $X_{\theta_{t_0}(p)} = F_*(\frac{d}{dt}\bigr|_{t_0}) = 0$, then this is true for all $t\in \R$ (all points on the orbit), and so $F$ is a constant map ({\color{red}because its Jacobian has a constant rank of $0$\footnote{revisit after doing the immersion / rank thm sections.}}). 
+\end{proof}
+% Plan to do flow and Lie derivative
+% \begin{itemize}
+%     \item Before I can do integral curve, carefully write up the d/dt thing (the pushforward.). Integral curve is defined on page. 125. 
+%     \item The pushforward example is on page 118. 
+% \end{itemize}
+Note that the formula $F_*(\frac{d}{dt}\bigr|_{t_0}) = X_{F(t_0)}$ says that, given an action $\theta$ and its infinitesimal generator $X$, at each point $p$, $X_p$ is the tangent velocity vector of the curve $t\rightarrow F(t)$, that is, to the curve describing the orbit generated by this action. {|color{red}We will often write $F_*(\frac{d}{dt}\bigr|_{t_0})$ as $\dot F(t_0)$ or $\left(\frac{dF}{dt}\right)_{t_0}$ or even just $\dot p(t_0)$ or $\dot \theta(t_0, p)$. Note that these are different from the \textit{scalar} functions $\dot f^i(t)$ introduced in Section \ref{sec:tangent_velo}. }\footnote{I dont like this notation. Can we just do away with it? its too confusing!}
+
+\begin{defn}[Integral Curve]
+Given a vector field $X$ on a manifold $N$, we shall say that a curve $t\rightarrow F(t)$ defined on an open interval $(a,b)\subset \R$ is an \textit{integral curve} of $X$ if $\dot F(t) = X_{F(t)}$ on $(a, b)$.
+ % $d \sigma / dt = X_{\sigma (t)}$ on $(a, b)$. % change sigma to something else. Since sigma is being used for one forms.. or maybe not? both nijmeijer and boothby use sigma for both integral curves and one forms. meaning should be clear from context. 
+\end{defn}
+In other words, the discussion above says that the orbit of an action is the integral curve of the infinitesimal generator of that action. That is, for $p$ fixed, we have $\dot \theta(t,p) = X_{\theta(t,p)}$. 
+.\\
+.\\
+.\\
+
+
+Plan to do Lie bracket, and distribution
+
+Plan to do involutivity. 
+
+
 
 {\color{red}do the bit with d/dt being pushed forward by a curve, defining the derivative
 
-\begin{defn}[Integral Curve]
-Given a vector field $X$ on a manifold $N$, we shall say that a curve $t\rightarrow \sigma (t)$ defined on an open interval $(a,b)\subset \R$ is an \textit{integral curve} of $X$ if $d \sigma / dt = X_{\sigma (t)}$ on $(a, b)$. % change sigma to something else. Since sigma is being used for one forms.. or maybe not? both nijmeijer and boothby use sigma for both integral curves and one forms. meaning should be clear from context. 
-\end{defn}
 
 
 
@@ -375,11 +515,10 @@ This local representation illuminates that $X(p)h$, and therefore $L_Xh(p)$, def
 
 
 
-\subsection{One-forms, codistributions and pullbacks}
+\subsection{One-forms, codistributions and pullbacks}\label{sec:1FandCodistrib}
+\subsubsection{Covectors}\label{sec:covectors}
 
-\subsubsection{Covectors}
-
-Recall from linear algebra that given a finite dimensional vector space $V$, we may associate with it a dual vector space $V^*$, whose elements $\sigma : V \rightarrow \R$ are the linear functionals or \textit{covectors} on $V$. We briefly summarize some key properties. 
+Recall from linear algebra that given a finite dimensional vector space $V$, we may associate with it a dual vector space $V^*$, whose elements $\sigma : V \rightarrow \R$ are the linear functionals or \textit{covectors} on $V$. We briefly summarize some of their key properties. 
 
 \begin{itemize}
     \item Addition and scalar multiplication in $V^*$ are defined by
@@ -390,18 +529,18 @@ Recall from linear algebra that given a finite dimensional vector space $V$, we 
 \end{equation*}
 where the addition and multiplication on the RHS are of course operations in $\R$. 
     \item For $V$, $W$ vector spaces with their respective duals $V^*$ and $W^*$, the linear maps $F_*:V\rightarrow W$ and $F^*:W^*\rightarrow V^*$ are related by $(F^*\sigma)(v) = \sigma (F_*(v))$. Injectivity (surjectivity) of $F_*$ implies surjectivity (injectivity) of $F^*$. To see why, just think for 20 seconds. 
-    \item A basis $\left\{E_1, \dots, E_n\right\} \subset V$ induces a basis $\left\{\omega^1, \dots, \omega^n\right\} \subset V^*$ satisfying $\omega^i(E_j) = \delta^i_j$, the Kronecker delta. This implies that for a vector $v = v^i E_i$, the coefficients can be extracted using the basis covectors, $v^j = \omega^j(v)$. 
+    \item A basis $\left\{E_1, \dots, E_n\right\} \subset V$ induces a basis $\left\{\omega^1, \dots, \omega^n\right\} \subset V^*$ satisfying $\omega^i(E_j) = \delta^i_j$. This implies that for a vector $v = v^i E_i$, the coefficients can be extracted using the basis covectors, giving $v^j = \omega^j(v)$. 
 \end{itemize}
 
 \subsubsection{One-forms and the differential of a function}
 
-The dual object to a vector field is called a covector field, or \textit{one-form}. Given a manifold $N$, and its tangent space at $p$, $T_pN $, its dual \textit{cotangent space} is denoted by $T^*_pN$, and these can be collected via disjoint union into a cotangent bundle, denoted by $T^*N$. Here, a covector is a mapping $\sigma_p : T^*_pN\rightarrow \R$, and as in the case of generic vector and covector spaces, a basis $E_{1p}, \dots, E_{np}$ of $T_pN$ induces a covector basis $\omega^1_p, \dots, \omega^n_p$ of $T^*_pN$. A covector $\sigma_p$ can be expanded in this basis as $\sigma_p = \sigma_p(E_{ip})\omega^i_p$, where $\sigma_{ip}\triangleq\sigma_p(E_{ip})$ is the $i$-th component of the covector. The dual object of a vector field is defined as follows. 
+Given a manifold $N$, and its tangent space at $p$, $T_pN $, its dual \textit{cotangent space at $p$} is denoted by $T^*_pN$, and these can be collected via disjoint union into a cotangent bundle, denoted by $T^*N$ (c.f. Eq. \ref{eq:tangentbundle}). Here, a covector is a mapping $\sigma_p : T^*_pN\rightarrow \R$, and as in the case of generic vector and covector spaces (Section \ref{sec:covectors}), a basis $E_{1p}, \dots, E_{np}$ of $T_pN$ induces a covector basis $\omega^1_p, \dots, \omega^n_p$ of $T^*_pN$. A covector $\sigma_p$ can be expanded in this basis as $\sigma_p = \sigma_p(E_{ip})\omega^i_p$, where $\sigma_{ip}\triangleq\sigma_p(E_{ip})$ is the $i$-th component of the covector. Considering covectors as a functions of points on a manifold leads to a notion dual to vector fields, called one-forms. 
 
 \begin{defn}[One-form]\label{def:oneform}
-A \textit{smooth one-form} or smooth covector field $\sigma\in T^*N$ assigns a covector $\sigma_p\in T_p^*N$ to each point $p$ such that for any chart $U, \varphi$ with frames $E_1, \dots, E_n$, the real-valued functions $\sigma_{i} = \sigma(E_i)$ are smooth ($C^{\infty}$) on $U$. 
+A \textit{smooth one-form} $\sigma\in T^*N$ assigns a covector $\sigma_p\in T_p^*N$ to each point $p$ such that for any chart $U, \varphi$ with frames $E_1, \dots, E_n$, the real-valued functions $\sigma_{i} = \sigma(E_i)$ are smooth ($C^{\infty}$) on $U$. 
 \end{defn}
 
-Note that analogously to a vector field case, a smooth one-form is a (smooth) section of the cotangent bundle, satisfying $\pi \circ \sigma = \text{identity (on } N)$, where $\pi: T^*N \rightarrow N$ is the natural projection. 
+Note that analogously to a vector field case, a smooth one-form is a (smooth) section of the cotangent bundle, satisfying $\tilde \pi \circ \sigma = i_N$, where $\tilde \pi: T^*N \rightarrow N$ is the natural projection, and $i_N$ the identity. 
 
 The field of frames $E_1, \dots, E_n$ induces (pointwise) a \textit{field of (coordinate) coframes} $\omega^1, \dots, \omega^n$ on $U$. This allows us to expand a one-form as the linear combination $\sigma = \sigma_i\omega^i$, with $\sigma_i$ as in Definition \ref{def:oneform}. Given a vector field $X$ and a one-form $\sigma$ on $U\subset N$, $\sigma(X)$ is a smooth (since $X$ and $\sigma$ are smooth) real-valued function on $U$, with $(\sigma(X))(p) = \sigma_p(X_p)$. 
 
@@ -415,27 +554,50 @@ df(X)(p) &={} X_p(f) \\&={} \alpha^{i}(p)E_{ip}(f) \\
 
 On an open set $U\subset \R^n$ with coordinate functions $x^1, \dots, x^n$, field of frames $\partial_1, \dots, \partial_n$, we can define a field of coframes $dx^1, \dots, dx^n$, which is dual in the sense that $dx^i(\partial_j) = \delta^i_j$. We may extract the $i$-th component of a vector field $X$ in the natural basis as $dx^i(X)$, and write $X = dx^i(X)\partial_i$. 
 
-To derive an expression for $df$ in local coordinates, that is, to find the coefficients in $df = \beta_i dx^i$, we start with Eq. \ref{eq:differential1} (over all $p$), 
+% To derive an expression for $df$ in local coordinates, that is, to find the coefficients in $df = \beta_i dx^i$, we start with Eq. \ref{eq:differential1} (over all $p$), 
+% % \begin{equation}\begin{aligned}
+% % df(X) = df(\alpha^i\partial_i) & = \left(\beta_i dx^i\right)\left(\alpha^j\partial_j\right) \\
+% % & = \beta_i \alpha^j dx^i(\partial_j)\\
+% % & = \beta_i \alpha^i = \alpha^i\partial_{i}f \qquad \text{from Eq \ref{eq:differential1},}
+% % \end{aligned}
+% % \end{equation}
 % \begin{equation}\begin{aligned}
-% df(X) = df(\alpha^i\partial_i) & = \left(\beta_i dx^i\right)\left(\alpha^j\partial_j\right) \\
-% & = \beta_i \alpha^j dx^i(\partial_j)\\
-% & = \beta_i \alpha^i = \alpha^i\partial_{i}f \qquad \text{from Eq \ref{eq:differential1},}
+% \alpha^i\partial_{i}f = df(X) & = df\left(\alpha^j\partial_j\right) \\
+% & = \beta_i dx^i\left(\alpha^j\partial_j\right) &\qquad \text{(using the right distributivity of $\left(\beta_i dx^i\right)$)} \\
+% & = \beta_i \alpha^j dx^i(\partial_j) &\qquad \text{(using the linearity of $dx^i$)} \\
+% & = \beta_i \alpha^i &\qquad \text{(via $\delta^i_j$)}, 
 % \end{aligned}
 % \end{equation}
+% % noting the linearity of $dx^i$ and right-distributivity of $\left(\beta_i dx^i\right)$. 
+% giving $\beta_i = \partial_{i}f$, so that $df = (\partial_{i}f) dx^i = \frac{\partial f}{\partial x^1}dx^1+\cdots + \frac{\partial f}{\partial x^n}dx^n $. 
+
+To derive an expression for $df$ in local coordinates, that is, to find the coefficients in $df = \beta_i dx^i$, simply apply this equation to $\partial_j$, giving 
 \begin{equation}\begin{aligned}
-\alpha^i\partial_{i}f = df(X) & = df\left(\alpha^j\partial_j\right) \\
-& = \beta_i dx^i\left(\alpha^j\partial_j\right) &\qquad \text{(using the right distributivity of $\left(\beta_i dx^i\right)$)} \\
-& = \beta_i \alpha^j dx^i(\partial_j) &\qquad \text{(using the linearity of $dx^i$)} \\
-& = \beta_i \alpha^i &\qquad \text{(via $\delta^i_j$)}, 
-\end{aligned}
-\end{equation}
-% noting the linearity of $dx^i$ and right-distributivity of $\left(\beta_i dx^i\right)$. 
-giving $\beta_i = \partial_{i}f$, so that $df = (\partial_{i}f) dx^i = \frac{\partial f}{\partial x^1}dx^1+\cdots + \frac{\partial f}{\partial x^n}dx^n $. 
+df(\partial_j) & = {} (\beta_i dx^i)(\partial_j)\\
+\partial_j f &={} \beta_i \delta_j^i 
+\end{aligned}\end{equation}
+so that $df = (\partial_i f)dx^i = \frac{\partial f}{\partial x^1}dx^1+\cdots + \frac{\partial f}{\partial x^n}dx^n $. 
+
+
+Any real-valued smooth function $f$ defines a one-form $df\in T^*N$ via Equation \ref{eq:differential1}. However, not every one form can be written as a differential $df$ of a function $f$. Those that can, are called \textit{exact}. A necessary condition for a one-form to be exact is that it be closed, with the defining characteristic 
+\begin{align}\label{eq:closedOneForm}
+\partial_j \sigma_i = \partial_i \sigma_j, \qquad \qquad \text{(closed one-form)},
+\end{align}
+ for all $i, j = 1, \dots, n$, where $\sigma = \sigma_i dx^i$, and recall that $\partial_i \partial_j f = \partial_j \partial_i f$. The converse is partially true, where Condition \ref{eq:closedOneForm} is sufficient for the local existence of a function $f$ such that $\sigma_i = \partial_i f$. 
+
+\subsubsection{The differential of a map versus a function}
+Discuss $F_*$ vs $df$. 
+
+
+\subsection{more stuff}
+{\color{red}go do flows and lie derivatives and come back to this.} Note also the relationship with the Lie derivative of a function 
+\begin{align}\label{eq:dfX_LXf}
+df(X) = X(f) &={} L_Xf,
+\end{align}
+{\color{red}which will be useful in describing a characterization of nonlinear observability in Section XX.}
 
 {\color{magenta}\textbf{!here}\\}
 {\color{red}
-
-
 
 % If $\{x^1, \dots, x^n\}$ are local coordinates around $p$, then
 %  $\{\left.\frac{\partial}{\partial x^1}\right\rvert_p,\dots, \left.\frac{\partial}{\partial x^n}\right\rvert_p \}$ is a basis for $T_pN$ in local coordinates, with the corresponding dual basis denoted $\{dx^1\vert_p, \dots, dx^n\vert_p\}$, with the defining relationship $dx^i\vert_p \left(\left.\frac{\partial}{\partial x_j}\right\rvert_p\right) = \delta_{ij}$. 
