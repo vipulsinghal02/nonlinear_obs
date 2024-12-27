@@ -1,163 +1,369 @@
+% \documentclass[psamsfonts]{amsart}
+% \usepackage{geometry}
+% \geometry{
+%   letterpaper,% redundant if already in \documentclass
+%   % left=15mm,
+%   % right=15mm,
+%   top=1in,
+%   bottom=1in,
+%   heightrounded,% better use it
+% }
+% \usepackage[foot]{amsaddr}
+% \usepackage[utf8]{inputenc}
+% \usepackage{amsfonts}
+% \usepackage{hyperref}
+
+% \setlength{\textwidth}{\paperwidth}
+% \addtolength{\textwidth}{-3in}
+% % \addtolength{\textwidth}{-2.5in}
+% % \addtolength{\textwidth}{-1in}
+% \calclayout
+
+% \hypersetup{
+% pdftitle={A brief tutorial on nonlinear observability},
+% pdfsubject={System Identification, Differential Geometry, Control Theory, Synthetic Biology},
+% pdfauthor={Vipul Singhal},
+% pdfkeywords={system composability, submanifolds, foliations, system Identification, observability, identifiability, differential geometry, nonlinear control}
+% }
+% \usepackage{amsmath}
+% \usepackage{xcolor}
+% \usepackage{amsthm}
+% \usepackage{pdflscape}
+% \usepackage{pgfplots}
+% \pgfplotsset{compat=1.18} 
+% \usepackage{mathrsfs}
+% \usepackage{mathtools} % added from qb16
+% \usepackage{amssymb}
+% \usepackage{natbib}
+
+% \usepackage{ dsfont } %mathds
+
+
+% \newtheorem{thm}{Theorem}[section]
+% \newtheorem{cor}[thm]{Corollary}
+% \newtheorem{prop}[thm]{Proposition}
+% \newtheorem{lem}[thm]{Lemma}
+% \newtheorem{conj}[thm]{Conjecture}
+% \newtheorem{quest}[thm]{Question}
+% \newtheorem{claim}[thm]{Claim}
+% \newtheorem{ppty}[thm]{Property}
+
+% \theoremstyle{definition}
+% \newtheorem{defn}[thm]{Definition}
+% \newtheorem{defns}[thm]{Definitions}
+% \newtheorem{con}[thm]{Construction}
+% \newtheorem{exmp}[thm]{Example}
+% \newtheorem{exmps}[thm]{Examples}
+% \newtheorem{notn}[thm]{Notation}
+% \newtheorem{notns}[thm]{Notations}
+% \newtheorem{addm}[thm]{Addendum}
+% \newtheorem{exer}[thm]{Exercise}
+% \newtheorem{limit}[thm]{Limitation}
+
+
+% \theoremstyle{remark}
+% \newtheorem{rem}[thm]{Remark}
+% \newtheorem{rems}[thm]{Remarks}
+% \newtheorem{warn}[thm]{Warning}
+% \newtheorem{sch}[thm]{Scholium}
+
+% \newcommand*\esp{\theta_e}
+% \newcommand*\csp{\theta_p} 
+% \newcommand*\syst{\mathcal{S}}
+% \newcommand*\extract{\mathcal{E}}
+% \newcommand*\circuit{\mathcal{P}}
+% \newcommand*\environment{\mathcal{E}}
+% \newcommand*\process{\mathcal{P}}
+% \newcommand*\espset{\mathit{E}} 
+% \newcommand*\cspset{\mathit{P}}
+% % \newcommand*\pspset{\mathit{P}}
+% \newcommand*\thetaset{\Theta}
+% \newcommand*\R{\mathds{R}}
+% \newcommand*\calib{\mathrm{cal}}
+% \newcommand*\test{\mathrm{test}}
+% \newcommand*\model{{M}}
+% \newcommand*\experiment{\mathcal{H}}
+% \newcommand*\textd{\text{d}}
+% % \usepackage[mathscr]{euscript} 
+
+% \newcommand*\nominal[1]{\overline{#1}}
+% \newcommand*\estimated[1]{\hat{#1}}
+% \DeclareMathOperator{\id}{{ID}}
+% \DeclareMathOperator{\proj}{{proj}}
+% \DeclareMathOperator{\aff}{{cut}}
+% \DeclareMathOperator{\deriv}{d}
+% % \newcommand*\modeldata{\mathcal{Y}\circ\mathcal{\model}}
+% \newcommand*\modeldata{\Gamma}
+% \newcommand*\placehold{{\color{red}XXYY }}
+% \newcommand*\isdefined{\triangleq}
+% \newcommand*\regist{\textsuperscript{\tiny\sffamily\textregistered}}
+
+
+% \newcommand{\dataset}{{\cal D}}
+% \newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
+
+
+
+% \makeatletter
+% \let\c@equation\c@thm
+% \makeatother
+% \numberwithin{equation}{section}
+
+% \bibliographystyle{plain}
+
+% %--------Meta Data: Fill in your info------
+% % ---\title{A Differential Geometric Approach to Composing Uncertain Systems for Prediction}
+% % ---\title{Geometric Properties of Parametric Uncertainty in Genetic Circuits}
+% % ---\title{Model outputs foliate parametric uncertainty}
+% % ---\title{Notes on nonlinear observability, with applications in uncertainty quantification for systems biology models}
+% \title{A primer on nonlinear observability and identifiability with applications in synthetic biology} % for perturbational control of transcriptional states
+% % ---\title{Controllability and Observability of Transcriptomic States}
+% \author{Vipul Singhal}
+% % ---\address{$^1$Genome Institute of Singapore, Agency for Science, Technology and Research, 60 Biopolis St., Singapore, Republic of Singapore}
+% \address{$^1$Integrated Biosciences, 900 Island Drive, Redwood City, CA 94065, United States}
+% \email{vipul@integratedbiosciences.com}
+% \begin{document}
+
+% \begin{abstract}
+% % {\color{red}Note: these notes should be more or less self contained. Do not expect the reader to look things up while reading. It's okay to expect them to know the general gist of differential geometry, and maybe even have studied it in the past. I.e., these notes serve as a very brief primer or a refresher, so that we can talk about nonlinear control ideas. This is not not a first course in diffgeo. Though it is also not a piece of swiss cheese. Make sure there aren't any major holes! (its okay to skip Hausdorff spaces/the difinition of topological manifolds, second countability, etc. )}
+
+% A brief set of notes on nonlinear observability and identifiability. We begin with a description of basic ideas from differential geometry (manifolds, Frobenius theorem, distributions and codistributions), and move on to describing the observability-identifiability codistribution. We end with a method for identifying state and parameter variables that are unobservable or non-identifiable. %This geometric viewpoint is then used to describe uncertainty in models of gene expression in systems and synthetic biology. We also describe the accessibility algebra associated with a perturbed system, which motivates a theory of nonlinear controllability for genetic networks. We end by describing \textit{minimal realizations} of nonlinear control systems, and as a corollary, gene regulatory networks. %and discuss the possibility of controlling the transcriptomic and proteomic state of cells by over and under expressing genes and manipulating signaling pathways. 
+
+
+% % \noindent \textbf{Keywords.} system composability, submanifolds, foliations, system identification, genetic circuits, machine learning, manifold learning
+% % diffusion maps, polynomial ideals, parameter variety, graph laplacian
+% \end{abstract}
+
+% \maketitle
+% \tableofcontents
+
+
+
+% \section{Introduction} 
+
 \documentclass[psamsfonts]{amsart}
+
+% Package organization
 \usepackage{geometry}
+\usepackage[foot]{amsaddr}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathrsfs,mathtools,dsfont}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{todonotes}  % For development notes
+
+% Document geometry
 \geometry{
-  letterpaper,% redundant if already in \documentclass
-  % left=15mm,
-  % right=15mm,
+  letterpaper,
   top=1in,
   bottom=1in,
-  heightrounded,% better use it
+  heightrounded
 }
-\usepackage[foot]{amsaddr}
-\usepackage[utf8]{inputenc}
-\usepackage{amsfonts}
-\usepackage{hyperref}
 
-\setlength{\textwidth}{\paperwidth}
-\addtolength{\textwidth}{-3in}
-% \addtolength{\textwidth}{-2.5in}
-% \addtolength{\textwidth}{-1in}
-\calclayout
-
-\hypersetup{
-pdftitle={A brief tutorial on nonlinear observability},
-pdfsubject={System Identification, Differential Geometry, Control Theory, Synthetic Biology},
-pdfauthor={Vipul Singhal},
-pdfkeywords={system composability, submanifolds, foliations, system Identification, observability, identifiability, differential geometry, nonlinear control}
-}
-\usepackage{amsmath}
-\usepackage{xcolor}
-\usepackage{amsthm}
-\usepackage{pdflscape}
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.18} 
-\usepackage{mathrsfs}
-\usepackage{mathtools} % added from qb16
-\usepackage{amssymb}
-\usepackage{natbib}
-
-\usepackage{ dsfont } %mathds
-
-
+% Theorem environments with consistent numbering
+\theoremstyle{plain}
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{cor}[thm]{Corollary}
 \newtheorem{prop}[thm]{Proposition}
 \newtheorem{lem}[thm]{Lemma}
-\newtheorem{conj}[thm]{Conjecture}
-\newtheorem{quest}[thm]{Question}
-\newtheorem{claim}[thm]{Claim}
-\newtheorem{ppty}[thm]{Property}
 
 \theoremstyle{definition}
 \newtheorem{defn}[thm]{Definition}
-\newtheorem{defns}[thm]{Definitions}
-\newtheorem{con}[thm]{Construction}
-\newtheorem{exmp}[thm]{Example}
-\newtheorem{exmps}[thm]{Examples}
-\newtheorem{notn}[thm]{Notation}
-\newtheorem{notns}[thm]{Notations}
-\newtheorem{addm}[thm]{Addendum}
-\newtheorem{exer}[thm]{Exercise}
-\newtheorem{limit}[thm]{Limitation}
+\newtheorem{example}[thm]{Example}
+\newtheorem{remark}[thm]{Remark}
 
+% Mathematical operators and notation
+\newcommand{\R}{\mathds{R}}
+\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\isdefined}{\triangleq}
+\newcommand{\liebrack}[2]{[#1,#2]}  % Lie bracket notation
+\DeclareMathOperator{\ann}{ann}      % Annihilator
+% \DeclareMathOperator{\ker}{ker}      % Kernel
 
-\theoremstyle{remark}
-\newtheorem{rem}[thm]{Remark}
-\newtheorem{rems}[thm]{Remarks}
-\newtheorem{warn}[thm]{Warning}
-\newtheorem{sch}[thm]{Scholium}
-
-\newcommand*\esp{\theta_e}
-\newcommand*\csp{\theta_p} 
-\newcommand*\syst{\mathcal{S}}
-\newcommand*\extract{\mathcal{E}}
-\newcommand*\circuit{\mathcal{P}}
-\newcommand*\environment{\mathcal{E}}
-\newcommand*\process{\mathcal{P}}
-\newcommand*\espset{\mathit{E}} 
-\newcommand*\cspset{\mathit{P}}
-% \newcommand*\pspset{\mathit{P}}
-\newcommand*\thetaset{\Theta}
-\newcommand*\R{\mathds{R}}
-\newcommand*\calib{\mathrm{cal}}
-\newcommand*\test{\mathrm{test}}
-\newcommand*\model{{M}}
-\newcommand*\experiment{\mathcal{H}}
-\newcommand*\textd{\text{d}}
-% \usepackage[mathscr]{euscript} 
-
-\newcommand*\nominal[1]{\overline{#1}}
-\newcommand*\estimated[1]{\hat{#1}}
-\DeclareMathOperator{\id}{{ID}}
-\DeclareMathOperator{\proj}{{proj}}
-\DeclareMathOperator{\aff}{{cut}}
-\DeclareMathOperator{\deriv}{d}
-% \newcommand*\modeldata{\mathcal{Y}\circ\mathcal{\model}}
-\newcommand*\modeldata{\Gamma}
-\newcommand*\placehold{{\color{red}XXYY }}
-\newcommand*\isdefined{\triangleq}
-\newcommand*\regist{\textsuperscript{\tiny\sffamily\textregistered}}
-
-
-\newcommand{\dataset}{{\cal D}}
-\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
-
-
-
-\makeatletter
-\let\c@equation\c@thm
-\makeatother
-\numberwithin{equation}{section}
-
-\bibliographystyle{plain}
-
-%--------Meta Data: Fill in your info------
-% \title{A Differential Geometric Approach to Composing Uncertain Systems for Prediction}
-% \title{Geometric Properties of Parametric Uncertainty in Genetic Circuits}
-% \title{Model outputs foliate parametric uncertainty}
-% \title{Notes on nonlinear observability, with applications in uncertainty quantification for systems biology models}
-\title{A primer on nonlinear observability and identifiability} % for perturbational control of transcriptional states
-\author{Vipul Singhal}
-% \address{$^1$Genome Institute of Singapore, Agency for Science, Technology and Research, 60 Biopolis St., Singapore, Republic of Singapore}
-% \address{$^1$Integrated Biosciences, 900 Island Drive, Redwood City, CA 94065, United States}
-\email{vs@alumni.caltech.edu}
 \begin{document}
 
+\title{A Primer on Nonlinear Control with Applications in Synthetic Biology}
+\author{Vipul Singhal}
+\address{Integrated Biosciences, 900 Island Drive, Redwood City, CA 94065}
+\email{vipul@integratedbiosciences.com}
+
 \begin{abstract}
-% {\color{red}Note: these notes should be more or less self contained. Do not expect the reader to look things up while reading. It's okay to expect them to know the general gist of differential geometry, and maybe even have studied it in the past. I.e., these notes serve as a very brief primer or a refresher, so that we can talk about nonlinear control ideas. This is not not a first course in diffgeo. Though it is also not a piece of swiss cheese. Make sure there aren't any major holes! (its okay to skip Hausdorff spaces/the difinition of topological manifolds, second countability, etc. )}
-
-A brief set of notes on nonlinear observability and identifiability. We begin with a description of basic ideas from differential geometry (manifolds, Frobenius theorem, distributions and codistributions), and move on to describing the observability-identifiability codistribution. We end with a method for identifying state and parameter variables that are unobservable or non-identifiable. %This geometric viewpoint is then used to describe uncertainty in models of gene expression in systems and synthetic biology. We also describe the accessibility algebra associated with a perturbed system, which motivates a theory of nonlinear controllability for genetic networks. We end by describing \textit{minimal realizations} of nonlinear control systems, and as a corollary, gene regulatory networks. %and discuss the possibility of controlling the transcriptomic and proteomic state of cells by over and under expressing genes and manipulating signaling pathways. 
-
-
-% \noindent \textbf{Keywords.} system composability, submanifolds, foliations, system identification, genetic circuits, machine learning, manifold learning
-% diffusion maps, polynomial ideals, parameter variety, graph laplacian
+We present a comprehensive treatment of nonlinear observability and identifiability through differential geometry. Beginning with fundamental concepts (manifolds, Frobenius theorem, distributions and codistributions), we develop the theory of observability-identifiability codistribution. This leads to practical methods for identifying unobservable states and non-identifiable parameters in biological systems. Our focus throughout is on applications to synthetic biology and gene regulatory networks.
 \end{abstract}
 
 \maketitle
-\tableofcontents
 
-\section{Introduction} 
-Nonlinear control is a beautiful area within mathematics, with myriad applications in fields ranging from electrical and aerospace engineering to biology and machine learning (cite). [mention nonlinear observability and controllability]
+\section{Introduction}
+% Differential geometry provides the mathematical foundation for understanding and controlling nonlinear systems, particularly in modern biology. 
 
-We briefly review some basic notions from differential geometry: smooth manifolds, coordinate charts, local representatives of objects (maps, vectors, etc.), vectors as differential operators, tangent spaces, and flows generated by vector fields. A more complete treatment can be found in any standard nonlinear control or differntial geometry text, such as \cite{nijmeijer_nonlinear_1990,boothby_2002}. Another excellent source is \cite{abraham_manifolds_1988}, though this is better used as a second course or a reference text. %make it feel like one is taking too many detours from the ``goal'' of getting to core results like Frobenius' theorem. 
+% Consider a genetic regulatory network where:
+% \begin{itemize}
+% \item Genes interact through complex feedback loops
+% \item Proteins modify expression through nonlinear activation/repression
+% \item Epigenetic states evolve through intricate biochemical mechanisms
+% \end{itemize}
+
+% Unlike linear systems where effects are proportional to inputs, biological networks exhibit rich behaviors including:
+% \begin{itemize}
+% \item Bistability in gene expression
+% \item Oscillatory dynamics in protein levels
+% \item Threshold effects in cellular responses
+% \end{itemize}
+
+% % previous stuff: 
+
+% The focus of these notes is on biology, where these tools offer powerful frameworks for understanding and controlling cellular and genetic systems. They might be used to design control strategies that steer cellular states through precise combinations of drug dosing and optogenetic interventions. Additionally, they enable the analysis of the observability of intricate genetic networks, especially when limited measurement data---such as fluorescent reporters tracking single-gene dynamics or RNA sequencing capturing genome-wide snapshots at single time points---is available. These tools also provide methods to evaluate parameter identifiability in nonlinear dynamical models, ensuring that model predictions align with biological reality. Moreover, they facilitate a deeper understanding of the geometry of state and parameter spaces, revealing the intricate structure and behavior of biological systems.
+
+% In biology, these tools could be used to:
+% \begin{itemize}
+% \item Design control strategies for steering cellular states using combinations of drug dosing and optogenetic interventions
+% \item Analyze the observability of complex genetic networks from limited measurements (e.g., RNA sequencing data)
+% \item Evaluate parameter identifiability in nonlinear dynamical models of cellular processes
+% \item Understand the geometry of state space and parameter space in biological systems
+% \end{itemize}
+
+% Two fundamental concepts that we'll explore in depth are nonlinear observability and controllability. Observability addresses whether we can determine a system's full state (e.g., protein concentrations, epigenetic modifications) from partial measurements (e.g., RNA sequencing and/or fluorescent reporters). Controllability examines whether we can drive the system to desired states through available interventions. In the biological context, this might involve using drug combinations to steer transcriptomic profiles, applying optogenetic perturbations to control protein activity, or modifying epigenetic states through targeted interventions. These properties, while straightforward for linear systems, require sophisticated geometric tools when applied to the nonlinear dynamics typical of biological networks. A related concept, parameter identifiability, helps us understand which kinetic parameters in our models can be determined from experimental data---crucial for building accurate representations of cellular processes.
+
+
+% # ----------------------------- chat gpt --------------------------------- #
+% Differential geometry provides the mathematical foundation for understanding and controlling nonlinear systems, a crucial capability in modern engineering and science. While linear approximations offer valuable insights, many systems in engineering and science---from spacecraft attitude control to robot manipulation to biological cell regulation---are fundamentally nonlinear. This nonlinearity necessitates sophisticated mathematical tools for analysis and control.
+
+% Consider a genetic regulatory network: genes interact through complex feedback loops, proteins modify expression levels through nonlinear activation and repression functions, and epigenetic states evolve through intricate biochemical mechanisms. Unlike linear systems where effects are proportional to inputs, biological networks exhibit rich behaviors like bistability, oscillations, and threshold effects. This nonlinearity makes both control and state estimation particularly challenging, yet these fields are active areas of research with considerable potential for advancing therapeutic strategies.
+
+% The mathematical tools we will develop in this text---smooth manifolds, tangent spaces, vector fields, and more---provide the language to describe nonlinear systems and design controllers for them. These tools have enabled breakthroughs in diverse fields. In aeronautics, they underpin the precision control of aircraft and spacecraft orientation. In robotics, they facilitate motion planning for robotic arms and autonomous vehicles, and in machine learning, they provide insights into the geometry of optimization landscapes, enhancing our understanding of how algorithms converge.
+
+% The focus of these notes is on how differential geometric ideas might be used for understanding and controlling genetic systems. They can be used to design control strategies for steering cellular states through precise combinations of drug dosing and optogenetic interventions. They might also be used for analyzing the observability of transcriptomic or proteomic states, even with limited measurement data, such as fluorescent reporters tracking single-gene dynamics or RNA sequencing capturing genome-wide snapshots at single time points. These tools also help evaluate parameter identifiability, ensuring that model predictions align with experimental data. Furthermore, they facilitate a deeper understanding of the geometry of state and parameter spaces, shedding light on the intricate structures and dynamics underlying biological systems and paving the way for innovative approaches to modeling and intervention.
+
+% Two fundamental concepts we’ll explore in depth are nonlinear observability and controllability. Observability addresses whether we can infer a system’s full state---such as protein concentrations or epigenetic modifications---from partial measurements, like RNA sequencing or fluorescent reporters. Controllability, on the other hand, examines whether we can drive the system to desired states using available interventions. In biology, this might involve steering transcriptomic profiles with drug combinations, controlling protein activity through optogenetic perturbations, or modifying epigenetic states with targeted interventions. While these properties are relatively straightforward to analyze in linear systems, the nonlinear dynamics typical of biological networks demand sophisticated geometric tools to capture their complexity.
+
+% A closely related concept, parameter identifiability, focuses on determining which kinetic parameters in a model can be inferred from experimental data---a critical step in building accurate representations of cellular processes. Together, these concepts form the foundation for understanding and controlling the intricate behavior of biological systems.
+
+% This text begins with fundamental concepts from differential geometry and progresses toward their applications in biological control theory. The following sections review essential topics, including smooth manifolds, coordinate charts, tangent spaces, and flows generated by vector fields. These concepts form the foundation for analyzing key properties such as controllability, observability, and identifiability in biological systems.
+
+% For readers interested in further exploration, \cite{nijmeijer_nonlinear_1990} offer an excellent introduction to control applications, while \cite{boothby_2002} provides a thorough grounding in geometric foundations. For a more advanced perspective, \cite{abraham_manifolds_1988} deliver an in-depth treatment of these ideas. Ultimately, this text aims to equip readers with both the theoretical understanding and practical tools to analyze and control complex biological systems.
+
+% # ----------------------------- Gemini --------------------------------- #
+
+Differential geometry provides the mathematical foundation for understanding and controlling nonlinear systems, a crucial capability in modern engineering and science. While linear approximations offer valuable insights, many systems in engineering and science, including spacecraft attitude control, robot manipulation, and biological systems, exhibit inherently nonlinear behavior. Consider the intricate dynamics of a gene regulatory network: genes interact through complex feedback loops, proteins modify expression levels through nonlinear activation and repression functions, and epigenetic states evolve through intricate biochemical mechanisms. Unlike linear systems, where effects are proportional to inputs, these networks exhibit rich behaviors like bistability, oscillations, and threshold effects, making both control and state estimation particularly challenging.
+
+The mathematical tools we will develop in this text – smooth manifolds, tangent spaces, vector fields, and more – provide the language to describe and analyze these nonlinear systems. These tools have enabled breakthroughs in diverse fields, including aeronautics, robotics, and machine learning. In aeronautics, they underpin the precision control of aircraft and spacecraft orientation. In robotics, they facilitate motion planning for robotic arms and autonomous vehicles. In machine learning, they provide insights into the geometry of optimization landscapes, enhancing our understanding of how algorithms converge.
+
+This text focuses on applying these powerful tools to understand and control genetic systems. For example, we can use differential geometry to design control strategies for steering cellular states through precise combinations of drug dosing and optogenetic interventions. Imagine controlling the expression of a specific gene involved in cancer progression by manipulating the activity of key regulatory proteins.
+
+Two fundamental concepts we'll explore in depth are nonlinear observability and controllability. Observability addresses whether we can infer a system's full state – such as protein concentrations or epigenetic modifications – from partial measurements, like RNA sequencing or fluorescent reporter data. Controllability examines whether we can drive the system to desired states using available interventions. In the context of our example, this might involve determining whether we can effectively control the expression of the cancer-related gene by manipulating the activity of its regulators.
+
+A closely related concept, parameter identifiability, focuses on determining which kinetic parameters in a model can be inferred from experimental data – a critical step in building accurate representations of cellular processes. These concepts form the foundation for understanding and controlling the intricate behavior of biological systems.
+
+This text begins with fundamental concepts from differential geometry, including smooth manifolds, coordinate charts, tangent spaces, and flows generated by vector fields. These concepts form the foundation for analyzing key properties such as controllability, observability, and identifiability in biological systems. For a deeper dive into these concepts, readers are encouraged to consult \cite{nijmeijer_nonlinear_1990}  for an excellent introduction to control applications and \cite{boothby_2002} for a thorough grounding in geometric foundations. For a morine advanced perspective, \cite{abraham_manifolds_1988} deliver an in-depth treatment of these ideas. 
+
+This text aims to equip readers with the theoretical understanding and practical tools to analyze and control complex biological systems, ultimately paving the way for advancements in areas such as personalized medicine and synthetic biology.
+
+
+
+
+% This text starts with a description of basic differential geometric concepts and progressing to their applications in biological control theory. While we'll maintain mathematical rigor, our focus will be on developing intuition and highlighting applications to real biological systems. In the following sections, we'll review essential concepts from differential geometry: smooth manifolds, coordinate charts, tangent spaces, and flows generated by vector fields. These provide the foundation for analyzing controllability, observability, and identifiability in biological systems. Readers seeking additional depth may consult standard references such as Nijmeijer \& van der Schaft (1990) for control applications or Boothby (2002) for geometric foundations. Abraham \& Marsden (1978) provides an advanced treatment suitable for deeper study. and Ratiu, Tudor
+
+% Introduction to Differential Geometry and Nonlinear Control
+
+% Differential geometry provides the mathematical foundation for understanding and controlling nonlinear systems, a crucial capability in modern engineering and science. While linear systems offer valuable approximations, many real-world phenomena - from spacecraft attitude control to robot manipulation to biological cell regulation - are inherently nonlinear. Understanding these systems requires the elegant mathematical framework that differential geometry provides.
+
+% Consider a simple example: a satellite maintaining its orientation in space. Unlike a linear system where effects are proportional to inputs, the satellite's rotation involves complex geometric relationships between angular momentum, torque, and orientation. This nonlinearity makes precise control challenging yet essential for mission success.
+
+% The mathematical tools we'll develop in this text - smooth manifolds, tangent spaces, vector fields, and more - provide the language to describe such nonlinear systems and design controllers for them. These tools have enabled breakthroughs in:
+
+% \begin{itemize}
+% \item Aerospace Engineering: Precision control of aircraft and spacecraft orientation
+% \item Robotics: Planning smooth motions for robotic arms and autonomous vehicles
+% \item Biology: Modeling cellular networks and biological control systems
+% \item Machine Learning: Understanding the geometry of optimization landscapes
+% \end{itemize}
+
+% Two fundamental concepts that we'll explore in depth are nonlinear observability (can we determine a system's state from measurements?) and controllability (can we drive the system to desired states?). These properties, while straightforward for linear systems, require sophisticated geometric tools in the nonlinear case.
+
+% This text aims to build these tools systematically, starting with basic differential geometric concepts and progressing to their applications in control theory. While we'll maintain mathematical rigor, our focus will be on developing intuition and highlighting practical applications.
+
+% In the following sections, we'll review essential concepts from differential geometry: smooth manifolds, coordinate charts, tangent spaces, and flows generated by vector fields. Readers seeking additional depth may consult standard references such as Nijmeijer \& van der Schaft (1990) for control applications or Boothby (2002) for geometric foundations. Abraham \& Marsden (1978) provides an advanced treatment suitable for deeper study.
+
+
+% Nonlinear control is a beautiful area within mathematics, with myriad applications in fields ranging from electrical and aerospace engineering to biology and machine learning (cite). [mention nonlinear observability and controllability]
+
+% We briefly review some basic notions from differential geometry: smooth manifolds, coordinate charts, local representatives of objects (maps, vectors, etc.), vectors as differential operators, tangent spaces, and flows generated by vector fields. A more complete treatment can be found in any standard nonlinear control or differntial geometry text, such as \cite{nijmeijer_nonlinear_1990,boothby_2002}. Another excellent source is \cite{abraham_manifolds_1988}, though this is better used as a second course or a reference text. %make it feel like one is taking too many detours from the ``goal'' of getting to core results like Frobenius' theorem. 
 
 \section{Differential Geometric Preliminaries}
 \subsection{Notational conventions}\label{sec:notationalconventions}
-Throughout this text, we will use the Einstein summation convention, where a repeated index, once in a subscript and once in a superscript, implies summation over the full range of values that index can take, obviating the need for a summation symbol. To illustrate this, a vector $v$ expressed as a linear combination of basis vectors $E_1, \dots, E_n$ of a vector space can be written as
+
+We adopt the Einstein summation convention throughout: repeated indices (once as superscript, once as subscript) imply summation over their range. For example, given a vector $v$ and basis vectors $\{E_1,\ldots,E_n\}$, we have
 \begin{equation}\label{eq:esc}
-\begin{aligned}
-v & = {} \alpha^i E_i
-&\triangleq{} \sum_{i = 1}^n \alpha^i E_i .
-\end{aligned}
+v = \alpha^i E_i \triangleq \sum_{i=1}^n \alpha^i E_i
 \end{equation}
-A related convention is that vectors, when indexed, will always have subscripts ($E_i$, for instance), while \textit{coefficients}, like $\alpha^i$, will be indexed with superscripts. Similarly, covectors will have superscripts, while the coefficients in their linear expansion will have subscripts, $\omega  = \sum_{i = 1}^n w_i dx^i = w_i dx^i$. Furthermore, the index $i$ in $\frac{\partial}{\partial x^i}$ will be interpreted as a subscript; indeed, we will regularly abbreviate $\frac{\partial}{\partial x^i}\bigr|_a$ to $\partial_{ia}$, and later see that this is an element of $T_a\R^n$, the tangent space to $\R^n$ at a point $a$. Note also that all vector spaces in this document will be finite dimensional. 
+% Key conventions:
+% \begin{itemize}
+% \item Vectors have subscript indices ($E_i$)
+% \item Coefficients use superscript indices ($\alpha^i$)
+% \item Covectors use superscript indices with subscripts in coefficients, $\omega  = w_i dx^i$
+% \item All vector spaces are real and finite dimensional
+% \end{itemize}
+% Furthermore, the index $i$ in $\frac{\partial}{\partial x^i}$ will be interpreted as a subscript; indeed, we will regularly abbreviate $\frac{\partial}{\partial x^i}\bigr|_a$ to $\partial_{ia}$, and later see that this is an element of $T_a\R^n$, the tangent space to $\R^n$ at a point $a$.
+
+% Throughout this text, we will use the Einstein summation convention, where a repeated index, once in a subscript and once in a superscript, implies summation over the full range of values that index can take, obviating the need for a summation symbol. To illustrate this, a vector $v$ expressed as a linear combination of basis vectors $E_1, \dots, E_n$ of a vector space can be written as
+% \begin{equation}\label{eq:esc}
+% \begin{aligned}
+% v & = {} \alpha^i E_i
+% &\triangleq{} \sum_{i = 1}^n \alpha^i E_i .
+% \end{aligned}
+% \end{equation}
+% 
+All vector spaces will be real and finite-dimensional, and vectors and their coefficients will be indexed with subscripts and superscripts, respectively (as in Eq \eqref{eq:esc}). Similarly, covectors will have superscripts, while the corresponding coefficients will have subscripts, $\omega  = \sum_{i = 1}^n w_i dx^i = w_i dx^i$. Furthermore, the index $i$ in $\frac{\partial}{\partial x^i}$ will be interpreted as a subscript; indeed, we will regularly abbreviate $\frac{\partial}{\partial x^i}\bigr|_a$ to $\partial_{ia}$, and later see that this is an element of $T_a\R^n$, the tangent space to $\R^n$ at a point $a$. Note also that all vector spaces in this document will be finite dimensional. 
 
 \subsection{Manifolds, charts and local representatives}
 
-Roughly speaking, a smooth manifold is a set which is locally Euclidean---in the sense that neighborhoods of points can be modeled using Euclidean spaces---along with a certain \textit{differentiable structure}, which we describe below.\footnote{Our description will omit certain technical details, like the underlying topological space needing to have a second countable basis of open sets, and being Hausdorff. While important in their own right, these details do not usually make an appearance in proofs, and can safely be skipped in a first reading of nonlinear control. The interested reader can find them in any differential geometry text, such as \cite{abraham_manifolds_1988}.} We use the symbol $N$ to denote an $n$-dimensional smooth ($C^{\infty}$) manifold, and the tuples $(U, \varphi)$ and $(V, \phi)$ to denote coordinate charts, where $U$ and $V$ are open sets in $N$ (which exist by virtue of $N$ being a Hausdorff topological space) and the homeomorphisms $\varphi$ and $\phi$ map them (respectively) onto open sets in $\R^n$. The key component of $N$'s differentiable structure is the following compatibility requirement for coordinate changes: whenever $U \cap V$ has a nonempty interior, the map $\phi\circ\varphi^{-1}: \varphi(U\cap V) \rightarrow \phi(U\cap V)$ is a (smooth) diffeomorphism. %This requirement is the critical aspect of what is known as the differentiable structure of a manifold, and turns the topological manifold into a \textit{smooth manifold}. 
+% {\color{red}
+% \begin{defn}[Smooth Manifold]\label{def:smooth_manifold}
+% An $n$-dimensional smooth manifold $N$ is a set with two key properties:
+% \begin{enumerate}
+%     \item It is locally Euclidean: each point has a neighborhood that can be mapped to an open subset of $\R^n$
+%     \item It has a smooth structure: the transitions between different local descriptions are smooth
+% \end{enumerate}
+% \end{defn}
+
+% To make this precise, we introduce the notion of coordinate charts. A coordinate chart is a pair $(U, \varphi)$ where:
+% \begin{itemize}
+%     \item $U \subset N$ is an open set in the manifold
+%     \item $\varphi: U \to \R^n$ is a homeomorphism onto its image
+% \end{itemize}
+
+% The crucial aspect of a smooth manifold is how these charts relate to each other. Given two charts $(U, \varphi)$ and $(V, \phi)$ with overlapping domains ($U \cap V \neq \emptyset$), we require that:
+% \begin{equation}\label{eq:transition_map}
+%     \phi \circ \varphi^{-1}: \varphi(U \cap V) \to \phi(U \cap V)
+% \end{equation}
+% is a smooth diffeomorphism. This map is called a transition map or coordinate transformation.
+
+% % notability a fig? or use the procreate app on ipad. 
+% % \begin{figure}[h]
+% %     \centering
+% %     \includegraphics[width=0.8\textwidth]{manifold_charts.pdf}
+% %     \caption{Visualization of coordinate charts and transition maps on a smooth manifold. Two overlapping charts $(U,\varphi)$ and $(V,\phi)$ provide local coordinates, with the transition map $\phi \circ \varphi^{-1}$ ensuring smooth compatibility between them.}
+% %     \label{fig:manifold_charts}
+% % \end{figure}
+
+
+% \begin{example}[Gene Expression Space]\label{ex:gene_expression}
+% Consider the space of possible expression levels for $n$ genes. While each gene's expression level is technically bounded, we can often model this locally as $\R^n_+$ (the positive orthant). Different experimental techniques (RNA-seq, microarrays, qPCR) provide different ``charts'' for measuring these expression levels, with transformation functions relating their measurements.
+% \end{example}
+
+
+% }
+
+A smooth manifold is a set which is locally Euclidean---in the sense that neighborhoods of points can be modeled using Euclidean spaces---along with a certain \textit{differentiable structure}, which we describe below.
+% \footnote{Our description will omit certain technical details, like the underlying topological space needing to have a second countable basis of open sets, and being Hausdorff. While important in their own right, these details do not usually make an appearance in proofs, and can safely be skipped in a first reading of nonlinear control. The interested reader can find them in any differential geometry text, such as \cite{abraham_manifolds_1988}.} 
+We use the symbol $N$ to denote an $n$-dimensional smooth ($C^{\infty}$) manifold, and the tuples $(U, \varphi)$ and $(V, \phi)$ to denote coordinate charts, where $U$ and $V$ are open sets in $N$ and the homeomorphisms $\varphi$ and $\phi$ map them (respectively) onto open sets in $\R^n$. The key component of $N$'s differentiable structure is the following compatibility requirement for coordinate changes: whenever $U \cap V$ has a nonempty interior, the map $\phi\circ\varphi^{-1}: \varphi(U\cap V) \rightarrow \phi(U\cap V)$ is a (smooth) diffeomorphism. %This requirement is the critical aspect of what is known as the differentiable structure of a manifold, and turns the topological manifold into a \textit{smooth manifold}. 
 % (which is used to define the differentiable structure of $N$, turning the topological manifold into a \textit{smooth manifold})
 
-A point $p\in U$ in local coordinates will typically be denoted by $a = \varphi (p) = (x^1(p), \dots, x^n(p)) \in \R^n$, where the $x^i: U \rightarrow \R$ are the ($C^{\infty}$) \textit{coordinate functions} corresponding to a given $\varphi$. Coordinate neighborhoods can therefore also be denoted by $(U, x^1, \dots x^n)$. 
+\begin{remark}
+For simplicity, we omit certain technical requirements on the topology of $N$, such as the existence of a second countable basis of open sets and the Hausdorff property.\footnote{These properties ensure that the manifold is well-behaved and has a countable atlas of charts. While important for a complete understanding, they can be safely assumed for most applications in nonlinear control. For a thorough treatment, see Chapter 1 of \cite{abraham_manifolds_1988}.}
+\end{remark}
+
+A point $p\in U$ in local coordinates will typically be denoted by $a = \varphi (p) = (x^1(p), \dots, x^n(p)) \in \R^n$, where the $x^i: U \rightarrow \R$ are the ($C^{\infty}$) \textit{coordinate functions} corresponding to a given $\varphi$. Coordinate neighborhoods may therefore also be denoted by $(U, x^1, \dots x^n)$. 
 
 The local representative of a map $f:U\rightarrow \R$ is constructed as $\hat f \triangleq f\circ \varphi^{-1}$, so that 
 \begin{align}\label{eq:localrep}
@@ -198,14 +404,14 @@ where the subscript $p$ denotes the point at which the derivative is evaluated.
 Interpreting $X_p$ as a directional derivative means that it can be thought of as a map from $C^{\infty}(p)$ to $\R$. This motivates the definition of a particular type of operator on real-valued smooth functions, called a \textit{derivation}. 
 
 \begin{defn}[Derivation]\label{def:derivations}
-The space of \textit{derivations}, denoted $\mathscr{D}(p)$, is the vector space of all mappings $C^{\infty}(p)\rightarrow \R$ such that for all $\alpha, \beta \in \R$ and $f, g \in C^{\infty}(p)$ the following two properties hold:
+The space of \textit{derivations}, denoted $\mathscr{D}(p)$, is the vector space of mappings $C^{\infty}(p)\rightarrow \R$ such that for all $\alpha, \beta \in \R$ and $f, g \in C^{\infty}(p)$ the following two properties,
 \begin{equation}\label{eq:linleibniz}
 \begin{aligned}
 X_p(\alpha f + \beta g) & = {} \alpha (X_p f) + \beta (X_p g) \qquad & \text{(linearity)},\\
 X_p(fg) & = {} (X_p f)g(p) + f(p)(X_p g) \qquad & \text{(Leibniz rule)},
 \end{aligned}
 \end{equation}
-with the vector space operations satisfying 
+hold, with vector space operations, 
 \begin{equation}
 \begin{aligned}
 (X_p+Y_p)(f) &={} X_p(f) +Y_p(f), \\
@@ -213,16 +419,16 @@ with the vector space operations satisfying
  \end{aligned}
  \end{equation}
 \end{defn}
-It may be verified that directional derivatives satisfy these properties, and are therefore derivations (and in fact, on the algebra of smooth functions $C^{\infty}(p)$, these are known to be the \textit{only} type of derivations to exist.)\footnote{On $C^r(p)$, for $r<\infty$, other types of derivations are known to exist.} These ideas are tied together by the following theorem. 
+It may be verified that directional derivatives satisfy these properties, and are therefore derivations (and in fact, on the algebra of smooth functions $C^{\infty}(p)$, these are known to be the \textit{only} type of derivations to exist.)\footnote{which is not the case on $C^r(p)$, for $r<\infty$} These ideas are tied together by the following theorem. 
 \begin{thm}
 The tangent space $T_p\R^n$ is isomorphic to the vector space $\mathscr{D}(p)$ of all derivations of $C^{\infty}(p)$ into $\R$. This isomorphism is given by making each $X_p$ correspond to the directional derivative in the direction of $X_p$. 
 \end{thm}
 
-Using this isomorphism, we can \textit{identify} $T_p\R^n$ with $\mathscr{D}(p)$. We write vectors as linear combinations of basis vectors, $X_p = \alpha^i \partial_{ip}$, so that the $E_{ip}$ are identified with $\partial_{ip}$, and $E_{ip}f = \partial_{ip} f$. Note that $X_p x^i = \alpha^i$, so that $X_p$ is completely determined by its action on the coordinate functions, $x^i$. This equivalence between derivations on functions and the tangent space will be especially useful in defining the tangent space to manifolds, a topic we cover next. 
+Using this isomorphism, we can {identify} $T_p\R^n$ with $\mathscr{D}(p)$. We write vectors as linear combinations of basis vectors, $X_p = \alpha^i \partial_{ip}$, so that the $E_{ip}$ are identified with $\partial_{ip}$, and $E_{ip}f = \partial_{ip} f$. Note that $X_p x^i = \left(\alpha^j \partial_{jp}\right) x^i = \alpha^j \delta^i_j = \alpha^i$, because $\frac{\partial x^i}{\partial x^j} = \delta^i_j = 1$ if $i=j$ and $0$ otherwise ($\delta^i_j$ is called the Kronecker delta). Consequently, $X_p$ is completely determined by its action on the coordinate functions, $x^i$. This equivalence between derivations on functions and the tangent space will be especially useful in defining the tangent space to manifolds, a topic we cover next. 
 
 \subsubsection{Tangent Space to $N$}
 
-Consider a smooth manifold $N$ and a point $p \in N$. We may define $C^{\infty}(p)$ as the algebra of real-valued smooth functions whose domain of definition contains some neighbourhood of $p$ in $N$, with functions identified if they agree on any neighbourhood of $p$. The tangent space to $N$ at $p$ may then be defined using derivations. 
+Consider a smooth manifold $N$ and a point $p \in N$. We may define $C^{\infty}(p)$ as the algebra of real-valued smooth functions whose domain of definition contains some neighbourhood of $p$ in $N$, with functions identified if they agree on any neighbourhood of $p$. %The tangent space to $N$ at $p$ may then be defined using derivations. 
 \begin{defn}[Tangent Space to $N$]\label{def:tangentspace}
 The \textit{tangent space} to $N$ at point $p$, denoted by $T_pN$, is defined as the space of derivations on $C^{\infty}(p)$, that is, the vector space of mappings $X_p: C^{\infty}(p)\rightarrow \R$ satisfying the linearity and Leibniz rule properties defined in Equation \ref{eq:linleibniz}. Elements of this space, denoted by $X_p\in T_pN$, are called \textit{tangent vectors} at $p$. 
 \end{defn} 
@@ -237,28 +443,30 @@ TN & = {} \bigsqcup_{p \in N} T_pN\\
  & = {} \bigcup_{p \in N} \{(p, v) \mid v \in T_pN\}.
 \end{aligned}
 \end{equation}
-One defines the natural projection $\pi : TN \twoheadrightarrow N : (p, v) \mapsto p$. %, which, in our case, looks like $(p, X_p) \mapsto \pi((p, X_p)) = p$. 
-Note that some authors define the tangent bundle without the base point explictly included, $TN = \cup_{p\in N}T_pN$, with projection $v \mapsto \pi(v) = p$ for $v \in T_pN$. Note also that in some cases, it is possible to find an isomorphism between the tangent bundle and the Cartesian product of the base space and any tangent space, such as $T\R^n \cong \R^n \times \R^n$ or $T\mathbb{S}^1 \cong \mathbb{S}^1 \times \R$. In this case, the tangent bundle is called the \textit{trivial bundle}. In general, however, such a decomposition will not exist (the most common example being $T\mathbb{S}^2$), and we will always use the definition in equation \ref{eq:tangentbundle}. The tangent bundle plays an instrumental role in the definition of (smooth) vector fields on manifolds. 
+One also defines the natural projection $\pi : TN \twoheadrightarrow N : (p, v) \mapsto p$. %, which, in our case, looks like $(p, X_p) \mapsto \pi((p, X_p)) = p$. 
+Note that some authors define the tangent bundle without the base point explictly included, $TN = \cup_{p\in N}T_pN$, with projection $v \mapsto \pi(v) = p$ for $v \in T_pN$. 
+
+In some cases, it is possible to find an isomorphism between the tangent bundle and the Cartesian product of the base space and some vector space, as in the cases of $T\R^n \cong \R^n \times \R^n$ or $T\mathbb{S}^1 \cong \mathbb{S}^1 \times \R$. In this case, the tangent bundle is called the \textit{trivial bundle}. In general, however, such a decomposition will not exist (the most common example being $T\mathbb{S}^2$), and we will always use the definition in equation \ref{eq:tangentbundle}. The tangent bundle plays an instrumental role in the definition of (smooth) vector fields on manifolds (Section \ref{sec:vf_flows_lie} below). 
 
 \subsubsection{Pushforward (differential) of a map}
-Before we can describe elements of $T_pN$ in local coordinates, we need to define two homomorphisms, the pullback of functions and the pushforward of vectors. 
+To describe elements of $T_pN$ in local coordinates, we require two definitions.
 
 \begin{defn}[Pullback and Pushforward]\label{def:pushforward}
 Let $F:N\rightarrow M$ be a $C^{\infty}$ map of manifolds. Then, for $p\in N$ and $f\in C^{\infty}(F(p))$, the \textit{pullback} $F^*:C^{\infty}(F(p))\rightarrow C^{\infty}(p)$ defined by $F^*(f) = f\circ F$ is a homomorphism of algebras. Its dual vector space homomorphism $F_*:T_pN \rightarrow T_{F(p)}M$, is called the \textit{pushforward}, and is defined by $F_*(X_p)f = X_p(F^*f)$, where $F_*(X_p)$ is a map of $C^{\infty}(F(p))$ to $\R$. If $H = G\circ F$, then $H^* = F^* \circ G^*$ and $H_* = G_* \circ F_*$. If $F$ is the identity, then $F^*$ and $F_*$ are the identity isomorphisms (on their respective domains). 
 \end{defn}
 
-A corollary of the last statement in Definition \ref{def:pushforward} is that pushforwards created out of diffeomorphisms are isomorphisms (consider the identity isomorphism that is constructed out of the identity map $F^{-1}\circ F$, namely $F_*^{-1}\circ F_*$). Then, for a chart $(U\ni p,\, \varphi)$, the spaces $T_pU$ and $T_{a}\left(\varphi(U)\right) \cong T_{a}\R^n$ are isomorphic, with $a = \varphi(p)$. The basis $ \left\{\partial_{ia}\right\}_{i = 1}^n$ of $T_{a}\R^n$ defines a basis of $T_pU$, 
+A corollary of the last statement in Definition \ref{def:pushforward} is that pushforwards created out of diffeomorphisms are isomorphisms (consider, for instance, the identity isomorphism $F_*^{-1}\circ F_*$ constructed out of the identity map $F^{-1}\circ F$). An important implication of this is that, for a chart $(U\ni p,\, \varphi)$, the spaces $T_pU$ and $T_{a}\left(\varphi(U)\right) \cong T_{a}\R^n$ are isomorphic, with $a = \varphi(p)$. The basis $ \left\{\partial_{ia}\right\}_{i = 1}^n$ of $T_{a}\R^n$ defines a basis of $T_pU$, 
 \begin{equation}
 \begin{aligned}
 \varphi^{-1}_*&:T_{a}\R^n\rightarrow T_pU, \qquad a = \varphi(p),\\
-E_{ip} &\triangleq{} \varphi^{-1}_*\partial_{ia}.
+E_{ip} &\triangleq{} \varphi^{-1}_*\partial_{ia}, \qquad i = 1, \dots, n.
 \end{aligned}
 \end{equation}
 
 
-The basis $\{E_{ip}\}_{i=1}^n \subset T_pU$ is called a {coordinate frame} at $p\in U$, and the \textit{coordinate frames on $U$} comprise the collection of all such bases, $\left\{ \{E_{ip}\}_{i=1}^n \; \bigr| \;p\in U \right\} \subset TU$. When referring the frames on $U$ as a whole, or to an arbitrary frame (with base point $p$ unspecified), we will use the symbols $E_1, \dots, E_n$, or $\partial_1, \dots, \partial_n$ in local coordinates. Notice that unlike in the $T_p\R^n$ case discussed previously, $\{E_{i}\}_{i = 1}^n$ and $\{\partial_{i}\}_{i = 1}^n$ are not {identified} with each other, although are equivalent via isomorphism, which reduces the study of $T_pU$ to the study of $T_{a}\R^n$. 
+This basis is called a {coordinate frame} at $p\in U$, and the {coordinate frames on $U$} comprise the collection of such bases on all points in $U$, that is, $\left\{ \{E_{ip}\}_{i=1}^n \; \bigr| \;p\in U \right\} \subset TU$. When referring to the frames on $U$ as a whole, or to an arbitrary frame (with base point $p$ unspecified), we will use the symbols $E_1, \dots, E_n$, or, in local coordinates, $\partial_1, \dots, \partial_n$. Notice that unlike in the $T_p\R^n$ case discussed previously, $\{E_{i}\}_{i = 1}^n$ and $\{\partial_{i}\}_{i = 1}^n$ cannot be {identified} with each other, although are equivalent up to isomorphism (via $\varphi_*$), \textit{which reduces the study of $T_pU$ to that of $T_{a}\R^n$}. 
 
-Given $f\in C^{\infty}(p)$ with local representative $\hat f = f\circ \varphi^{-1}$, we have $E_{ip}f = \partial_{ia}\hat f$. In particular, for coordinate functions $x^j$, we have $E_i x^j = \partial_i \hat x^j = \delta_{i}^j$, where $\delta^i_j = 1$ if $i=j$ and $0$ otherwise (the Kronecker delta). A vector may then be written $X_p = \alpha^i E_{ip}$, with $\alpha^i = X_p x^i$. 
+Given $f\in C^{\infty}(p)$ with local representative $\hat f = f\circ \varphi^{-1}$, we have $E_{ip}f = \partial_{ia}\hat f$. In particular, for coordinate functions $x^j$, we have $E_i x^j = \partial_i \hat x^j = \delta_{i}^j$. A vector may then be written $X_p = \alpha^i E_{ip}$, with $\alpha^i = X_p x^i$. 
 With these definitions, we can express $X_pf$ in local coordinates, 
 \begin{equation}
 \begin{aligned}
@@ -269,9 +477,10 @@ X_pf(p) & = {} \alpha^i E_{ip}f(p) = {} \alpha^i (\varphi_* E_{ip})(\varphi^{-1*
 or, dropping the caret, $X_p f(p) = \alpha^i\partial_{ia} f(a)$. 
 % Geometrically, we can identify tangent vectors with directional derivatives. Roughly speaking, for $f \in C^{\infty}(p)$, $X_p(f)$ is the derivative of $f$ in the tangent direction $X_p$. Said differently, for a curve $c: (-\epsilon, \epsilon)\rightarrow N$ with $c(0) = p$ and $\frac{dc}{dt}\bigr|_{t=0} = X_p$, we have $X_p(f) = \frac{d(f\circ c)(t)}{dt}\bigr|_{t=0}$.
 
-Next, we give an important theorem that describes the mapping $F_*:T_pN \rightarrow T_{F(p)}M$ in terms of coordinates and frames.  %Let $U, \varphi$ and $V, \phi$ be charts on $N$ and $M$ respectively, with $F(U)\subset V$. Let $a = \varphi(p) = (x^1, \dots, x^n)$, and $(y^1, \dots, y^m) = \phi \circ F \circ \varphi^{-1}(x^1, \dots, x^n)$ for $i=1, \dots, n$ be the local representatives, and $E_{ip} = \varphi^{-1}_* \partial_{x^i}$ and $\tilde E_{jF(p)} = \phi^{-1}_* \partial_{y^j}$ be the bases of the respective tangent spaces. 
-
-Let $U, \varphi = (x^1, \dots, x^n)$ and $V, \phi = (y^1, \dots, y^m)$ be charts (coordinate functions stated explicitly) on $N$ and $M$ respectively, with $F(U)\subset V$, $a = \varphi(p) = (x^1, \dots, x^n)$. Let the local representative of $F(p)$ be $f(a) = \phi \circ F \circ \varphi^{-1}(x^1, \dots, x^n)$, with components given by $f^j(x^1, \dots, x^n) = y^j(F\circ \varphi^{-1}(x^1, \dots, x^n))$. Some authors use the symbols $f^j$ and $y^j$ interchangeably, but note that their domains are different---$\varphi(U)$ and $V$ respectively---and one must use context to understand what is going on. Fortunately we will not be sloppy in this way; this will come at the cost of slightly increased verbosity. Furthermore, in this section we will distinguish the local representatives of the bases of $T_pN$ and $T_{F(p)}M$ by writing them out in full: $\frac{\partial}{\partial x^i}$ and $\frac{\partial}{\partial y^j}$. 
+Next, we give a theorem that describes the mapping $F_*:T_pN \rightarrow T_{F(p)}M$ in terms of coordinates and frames.  %Let $U, \varphi$ and $V, \phi$ be charts on $N$ and $M$ respectively, with $F(U)\subset V$. Let $a = \varphi(p) = (x^1, \dots, x^n)$, and $(y^1, \dots, y^m) = \phi \circ F \circ \varphi^{-1}(x^1, \dots, x^n)$ for $i=1, \dots, n$ be the local representatives, and $E_{ip} = \varphi^{-1}_* \partial_{x^i}$ and $\tilde E_{jF(p)} = \phi^{-1}_* \partial_{y^j}$ be the bases of the respective tangent spaces. 
+Let $(U, \varphi) = (U, x^1, \dots, x^n)$ and $(V, \phi) = (V, y^1, \dots, y^m)$ be charts on $N$ and $M$ respectively, with $F(U)\subset V$, $a = \varphi(p) = (x^1, \dots, x^n)$. Let the local representative of $F(p)$ be $f(a) = \phi \circ F \circ \varphi^{-1}(x^1, \dots, x^n)$, with components given by $f^j(x^1, \dots, x^n) = y^j(F\circ \varphi^{-1}(x^1, \dots, x^n))$. Some authors use the symbols $f^j$ and $y^j$ interchangeably, but note that their domains are different---$\varphi(U)$ and $V$ respectively---and we will treat them as distinct functions. 
+% Fortunately we will not be sloppy in this way; this will come at the cost of slightly increased verbosity. 
+Furthermore, in this section we will distinguish the local representatives of the bases of $T_pN$ and $T_{F(p)}M$ by writing them out in full: $\frac{\partial}{\partial x^i}$ and $\frac{\partial}{\partial y^j}$. 
 
 \begin{thm}\label{thm:pushforward_in_lr}
 Define $E_{ip} = \varphi^{-1}_* \left(\partial / \partial {x^i}\right)$ and $\tilde E_{jF(p)} = \phi^{-1}_* \left(\partial /\partial {y^j}\right)$ (over all $i, j$) as the bases of their respective tangent spaces. Then, 
@@ -293,16 +502,16 @@ F_*(E_{ip})y^j & = \left(F_*\circ \varphi^{-1}_* \left(\frac{\partial}{\partial 
 Thus, $F_*(E_{ip}) = \left(\frac{\partial f^j}{\partial x^i}\right) \tilde E_{jF(p)}$. The second part follows by recalling the linearity of $F_*$ and collecting terms, and is left as an exercise for the reader. 
 \end{proof}
 
-The terms $\frac{\partial y^j}{\partial x^i}$ form the \textit{Jacobian} matrix, and as such, $F_*$ is also known as the \textit{differential} of $F$, denoted by $dF$. 
+The terms $\frac{\partial y^j}{\partial x^i}$ form the {Jacobian} matrix, and as such, $F_*$ is also known as the \textit{differential} of $F$, denoted by $dF$. 
 
 \subsubsection{The tangent velocity vector}\label{sec:tangent_velo}
-The pushforward allows us to define the notion of the tangent \textit{velocity vector} to a curve. Roughly speaking, given a {curve} $F:(a,b)\rightarrow N$, the pushforward of the vector $\partial_{t, t_0} \triangleq \frac{d}{dt} \bigr|_{t_0}\in T_{t_0}(a,b)$ via $F_*$ results in the velocity vector $F_*(\partial_{t, t_0})\in T_{F(t_0)}N$; we can think of this as ``differentiating'' $F$ with respect to $t$ (at $t_0$). Formally, we proceed as follows. 
+The pushforward allows us to define the notion of the tangent \textit{velocity vector} to a curve. Roughly speaking, given a {curve} $F:(a,b)\rightarrow N$, the pushforward of the vector $\partial_{t, t_0} \triangleq \frac{d}{dt} \bigr|_{t_0}\in T_{t_0}(a,b)$ via $F_*$ results in the velocity vector $F_*(\partial_{t, t_0})\in T_{F(t_0)}N$; we can think of this as ``differentiating'' $F$ with respect to $t$ (at $t_0$). We describe this more formally next. 
 
-Consider manifolds $M = (a,b)\subset \R$, $N$, a map $F:M\rightarrow N$, and note that $\partial_{t,t_0}$ is a basis for $M$ at $t_0$. Let $p=F(t_0)$, and $f\in C^{\infty}(p)$, so that the {velocity vector} to the curve at $p$ is defined by 
+Consider the manifolds $M = (a,b)$ and $N$, along with a map $F:M\rightarrow N$, and note that $\partial_{t,t_0}$ is a basis for $M$ at $t_0$. Let $p=F(t_0)$, and $f\in C^{\infty}(p)$, so that the {velocity vector} to the curve at $p$ is defined by 
 \begin{align}\label{eq:velocityvec}
-F_*\left(\partial_{t,t_0}\right)f = \partial_t\left(f\circ F\right)_{t_0}
+F_*\left(\partial_{t,t_0}\right)f = \partial_t\left(f\circ F\right)_{t_0}.
 \end{align}
-Given a chart $p \ni U, \varphi = (x^1, \dots, x^n)$, so that in local coordinates $\hat F = (f^1(t), \dots, f^n(t)) \triangleq (x^1\circ F(t), \dots, x^n \circ F(t))$. 
+Given a chart $(U \ni p, x^1, \dots, x^n)$, so that in local coordinates $\hat F = (f^1(t), \dots, f^n(t)) \triangleq (x^1\circ F(t), \dots, x^n \circ F(t))$. 
 % We can then write $F_*(\partial_{t, t_0}) x^i = \partial_{t}(x^i \circ F)_{t_0}$. 
 Then, we may extract the $i$-th component of the velocity vector as $F_*(\partial_{t, t_0}) x^i ={} \partial_{t}(x^i \circ F)_{t_0} = \dot{f}^i$,
 % \begin{equation}\label{eq:velocitypushforward}
@@ -310,13 +519,13 @@ Then, we may extract the $i$-th component of the velocity vector as $F_*(\partia
 % F_*(\partial_{t, t_0}) x^i &={} \partial_{t}(x^i \circ F)_{t_0} = \dot{f^i}, 
 % \end{aligned}
 % \end{equation}
-with the dot indicating the derivative with respect to the variable $t$ (often interpreted as time). The velocity vector may then be expanded in the basis of $T_pN$ as $F_*(\partial_{t, t_0}) = \dot f^i(t_0)E_{ip}$. 
+with the dot indicating the derivative with respect to $t$ (often interpreted as time). The velocity vector may then be expanded in the basis of $T_pN$ as $F_*(\partial_{t, t_0}) = \dot f^i(t_0)E_{ip}$. 
 
 \subsubsection{Generalizing to arbitrary parameterizations} The setup in the previous section discussed a parameterization and tangent space (spanned by the velocity vector) of a one dimensional submanifold of $N$. 
 %Given an interval $U = (a,b)$, a curve $F:U\rightarrow N$ is a one-dimensional submanifold $F(U)$ of $N$, and is parameterized by a single variable $t\in (a, b)$. 
 This is a special case of arbitrary (finite) dimensional parameterizations, which we describe next. 
 
-Consider an $n$-dimensional manifold $N\subset \R^m$, with $n<m$, an open set $W\subset \R^n$, and a parameterization (imbedding) $\theta: W\rightarrow N$ of a neighbourhood $V = \theta(W)$ in $N$. In fact, $V, \theta^{-1}$ is a chart on $N$. Let $u^1, \dots, u^n$ be the natural (global) coordinates in $\R^n$ (and therefore also on $W$) and let $x^1, \dots, x^m$ be the natural coordinates in $\R^m$ (and therefore also $V$, despite it only being $n$-dimensional). The (global) coordinate frames are $\left\{\partial / \partial u^1, \dots, \partial / \partial u^n\right\} \subset T\R^n $ and $\left\{\partial / \partial x^1, \dots, \partial / \partial x^m\right\} \subset T\R^m$. 
+Consider an $n$-dimensional manifold $N\subset \R^m$, with $n<m$, an open set $W\subset \R^n$, and a parameterization (imbedding) $\theta: W\rightarrow N$ of a neighbourhood $V = \theta(W)$ in $N$. In fact, $(V, \theta^{-1})$ is a chart on $N$. Let $u^1, \dots, u^n$ be the natural (global) coordinates in $\R^n$ (and therefore also on $W$) and let $x^1, \dots, x^m$ be the natural coordinates in $\R^m$ (and therefore also $V$, despite it only being $n$-dimensional). The (global) coordinate frames are $\left\{\partial / \partial u^1, \dots, \partial / \partial u^n\right\} \subset T\R^n $ and $\left\{\partial / \partial x^1, \dots, \partial / \partial x^m\right\} \subset T\R^m$. 
 % Let the local coordinates on $W$ be denoted by $u^i$, $i = 1, \dots, n$, and consider the chart $V, \phi = (x^1, \dots, x^n)$.   
 %cannot do this because we want a separate chart for x^i and y^i coordinate functions. 
 % and a chart $U, \theta^{-1}$ on $N$. Let $W = \theta^{-1}(U)$ be an open neighbourhood in $\R^n$, so that $\theta: W\rightarrow N$ is an embedding of $W$ into $\R^m$. 
@@ -338,7 +547,9 @@ Due to the linearity of $\theta_*$, we have %A vector $X_{u_0}=\alpha^i \frac{\p
 \end{aligned}\end{equation}
 so that $\beta^j = \alpha^i \left({\partial \theta^j}/{\partial u^i}\right)_{u_0}$. 
 
-Because $\theta$ is an imbedding, the Jacobian $\left(\partial \theta^j / \partial x^i\right)_{u_0}$ has rank $n$ (see the definitions of immersion and imbedding in \cite{boothby_2002} for details\footnote{{\color{red}replace with ref to the imbedding / rank theorem section above if/when that becomes available.}}), and thus the $ \left(X_{u^i}\right)_0$, $i=1,\dots, n$ span $T_{\theta(u_0)}N$ which is a subspace of $T_{\theta(u_0)}\R^m$. Note that another standard description of tangent plane at a point $\theta(u_0)$ is the collection of all tangent vectors at that point to curves passing through that point which lie in $N$. To give a little more detail, we proceed as follows. 
+Because $\theta$ is an imbedding, the Jacobian $\left(\partial \theta^j / \partial x^i\right)_{u_0}$ has rank $n$ (see the definitions of immersion and imbedding in \cite{boothby_2002} for details\footnote{{\color{red}replace with ref to the imbedding / rank theorem section above if/when that becomes available.}}), and thus the vectors $ \left(X_{u^i}\right)_0$, $i=1,\dots, n$ span $T_{\theta(u_0)}N$, which is a subspace of $T_{\theta(u_0)}\R^m$. 
+
+An alternate description of the tangent plane at a point $\theta(u_0)$ is the collection of all tangent vectors at that point to curves passing through that point which lie in $N$. To give a little more detail, we proceed as follows. 
 
 Let $I = (a, b) \ni t_0$, and consider a curve $F = \left(f^1, \dots, f^n\right) : I \rightarrow W$, with $u_0 = F(t_0)$ and the corresponding curve on $N$ given by 
 \begin{align}
@@ -351,9 +562,10 @@ The pushforward of $\partial_{t}$ via this curve (with things evaluated at $t_0$
 &={} \dot f^i \left(\frac{\partial \theta^j}{\partial u^i}\frac{\partial}{\partial x^j}\right)\\
 &={} \dot f^i X_{u^i}, \qquad \text{by Eq. \ref{eq:parameterized_tangent_vec}.}
 \end{aligned}\end{equation}
-Consider the coordinate curve, obtained by setting (along the first coordinate, say, without losing generality) $f^1(t) = t$ and $f^j(t) = u^j_0$ for $j = 2, \dots, n$. Then, Eq. \ref{eq:parameterized_tangent_plane} reduces to $\left(\theta\circ F\right)_* \partial_{t} = X_{u^1}$. Now observe that the $(X_{u^j})_0$ are the coordinate frame vectors (in $T_{\theta(F(t_0))}N$) corresponding to the chart $V, \theta^{-1}$ on $N$. \textit{Thus, the coordinate frame vectors are tangent to the coordinate curves.}
+Consider the coordinate curve, obtained by setting (along the first coordinate, say, without losing generality) $f^1(t) = t$ and $f^j(t) = u^j_0$ for $j = 2, \dots, n$. Then, Eq. \ref{eq:parameterized_tangent_plane} reduces to $\left(\theta\circ F\right)_* \partial_{t} = X_{u^1}$. Now observe that the $(X_{u^j})_0$ are the coordinate frame vectors (in $T_{\theta(F(t_0))}N$) corresponding to the chart $(V, \theta^{-1})$ on $N$. {Thus, the coordinate frame vectors are tangent to the coordinate curves.}
 
 \subsection{Vector fields, flows, and the Lie derivative}
+\label{sec:vf_flows_lie}
 
 % another way to align. 
 % \begin{equation*}\begin{alignedat}{2}
@@ -365,30 +577,32 @@ Consider the coordinate curve, obtained by setting (along the first coordinate, 
 \begin{defn}[Vector Field]\label{def:vectorfield}
 A smooth vector field on a smooth manifold $N$ is defined as a smooth map $X:N\rightarrow TN$ satisfying $\pi \circ X = i_N$, where $i_N$ is the identity on $N$. 
 \end{defn}
-A vector field $X: N \rightarrow TN$ assigns a vector to each point on a manifold, such that the vector lies in the tangent space at that point, and the assignment is \textit{smooth}. Smoothness here is defined as follows. For a chart $(U\ni p, \varphi)$ of $N$, and $\{E_{ip}\}_{i = 1}^n$ the basis of $T_pN$, a vector may be written $X_p = \alpha^i(p) E_{ip}$. If $p$ is varied in $U$, so that we consider different vectors in the vector field, the components $\alpha^i$ are real-valued functions on $N$, which we require to be smooth. In local coordinates, we require 
+A vector field $X: N \rightarrow TN$ assigns a vector to each point on a manifold, such that the vector lies in the tangent space at that point, and the assignment is \textit{smooth}. Smoothness is defined as follows. 
+
+For a chart $(U\ni p, \varphi)$ of $N$, and $\{E_{ip}\}_{i = 1}^n$ a basis of $T_pN$, a vector may be written $X_p = \alpha^i(p) E_{ip}$. If $p$ is varied in $U$, so that we consider different vectors in the vector field, the components $\alpha^i$ are real-valued functions on $N$, which we require to be smooth. In local coordinates, we require 
 \begin{equation}\label{eq:vectorfieldcoeff}
 \begin{aligned}
 \alpha^i = \alpha^i(x^1, \dots, x^n), \qquad i = 1, \dots, n, \quad \text{on}\quad \varphi(U)\subset \R^n
 \end{aligned}
 \end{equation} 
 to be smooth, denoted by $\alpha^i \in C^{\infty}(\varphi(U))$. Note that the coordinate frames $E_1, \dots, E_n$ on $U$ are independent vector fields, and one refers to them as the \textit{field of frames} on $U$. 
-\begin{rem}
+\begin{remark}
 In Definition \ref{def:vectorfield}, the requirement 
 \begin{align}\label{eq:sectionproperty}
 \pi \circ X &= i_N
 \end{align}
  is there to ensure that a given vector in the vector field lies in the tangent space with the correct base point. At a more abstract level, a tangent bundle is an example of a \textit{fiber bundle}, and a vector field is an example of a \textit{smooth section} of this bundle, satisfying the property \ref{eq:sectionproperty}. Other examples of sections appear in differential geometry too, such as the dual notion of a one-form, which is a (smooth) section of the cotangent bundle (see Section \ref{sec:1FandCodistrib}). 
 % (which can be ambiguous in the case of trivial bundles; not so much for the definition in \ref{eq:tangentbundle}). %The stipulation $\pi \circ X = i_N$ becomes necessary if one defines $TN$ to be a simple (non-disjoint) union of all tangent spaces, $TN = \cup_{p\in N}T_pN$. 
-\end{rem}
+\end{remark}
 
 
-A coordinate-free definition of vector fields can be given by endowing $TN$ with the structure of a smooth manifold, with $X:N\rightarrow TN$ a smooth mapping. In this scenario, a chart $(U, \varphi) = (U, x^1, \dots, x^n)$ induces a chart $(\pi^{-1}(U), \varphi_*)$ on $TN$. For $X_p\in \pi^{-1}(U)$, expanded as $X_p = \alpha^i E_{ip}$, its local representative in $\varphi_*(\pi^{-1}(U))$ is written as $\hat X_a = \alpha^i \partial_{ia} = (x^1, \dots, x^n, \alpha^1, \dots, \alpha^n)$. One then argues that the natural projection $\pi:TN\rightarrow N$ is a $C^{\infty}$ map between manifolds, and so is $X$ as a map from $N$ into $TN$; see \cite{nijmeijer_nonlinear_1990} and the exercises 5-7 in \cite{boothby_2002} Section IV.2 for details. 
+A alternate coordinate-free definition of vector fields can be given by endowing $TN$ with the structure of a smooth manifold, with $X:N\rightarrow TN$ a smooth mapping. In this scenario, a chart $(U, \varphi) = (U, x^1, \dots, x^n)$ on the manifold $N$ induces a chart $(\pi^{-1}(U), \varphi_*)$ on the tangent bundle $TN$. For $X_p\in \pi^{-1}(U)$, expanded as $X_p = \alpha^i E_{ip}$, its local representative in $\varphi_*(\pi^{-1}(U))$ is written as $\hat X_a = \alpha^i \partial_{ia} = (x^1, \dots, x^n, \alpha^1, \dots, \alpha^n)$. One then argues that the natural projection $\pi:TN\rightarrow N$ is a $C^{\infty}$ map between manifolds, and so is $X$, as a map from $N$ into $TN$; see \cite{nijmeijer_nonlinear_1990} and the exercises 5-7 in \cite{boothby_2002} Section IV.2 for details. 
 
 
 \subsubsection{Flow of a vector field}
 
 \begin{defn}[$C^{\infty}$ action]\label{defn:cinfaction}
-The \textit{$C^{\infty}$ action} $\theta:\R \times N \rightarrow N$ of $\R$ on a smooth manifold $N$ is a $C^{\infty}$ map between manifolds satisfying
+The \textit{$C^{\infty}$ action,} $\theta:\R \times N \rightarrow N$ of $\R$ on a smooth manifold $N$ is a $C^{\infty}$ map between manifolds satisfying
 \begin{equation}
 \begin{aligned}
 \theta_0(p) &= p \quad \forall p\in N\\
@@ -397,7 +611,7 @@ The \textit{$C^{\infty}$ action} $\theta:\R \times N \rightarrow N$ of $\R$ on a
 \end{equation}
 \end{defn}
 
-We note that this is an example of a one-parameter Lie group ($\R$) acting on a smooth manifold, where the group operation ($+$) is a smooth map, and the identity element is $0$. The \textit{orbit} of a point $p$ is the set $\text{orb}_{\theta}(p) \triangleq \left\{\theta_t(p) \mid t\in \R \right\}$. 
+We note that this is an example of a one-parameter Lie group ($\R$) acting on a smooth manifold, where the group operation ($+$) is a smooth map, and the identity element is $0$. The \textit{orbit} of a point $p$ is the set of all points ``reachable'' from this point, $\text{orb}_{\theta}(p) \triangleq \left\{\theta_t(p) \mid t\in \R \right\}$. 
 
 \begin{defn}
 Given Definition \ref{defn:cinfaction}, the \textit{infinitesimal generator} of $\theta$ is defined as a vector field $X:N\rightarrow TN$ such that for each $p\in N$ and $f\in C^{\infty}(p)$, 
@@ -405,7 +619,8 @@ Given Definition \ref{defn:cinfaction}, the \textit{infinitesimal generator} of 
 X_pf = \lim_{\Delta t \rightarrow 0}\frac{f\left(\theta_{\Delta t}(p)\right)-f(p)}{\Delta t}
 \end{align}
 \end{defn}
-\begin{thm}The infinetesimal generator of an action is invariant under that action; that is, $\theta_{t*}X_p = X_{\theta_{t}(p)}$.\end{thm} 
+\begin{thm}\label{thm:infgen_invariance}
+The infinetesimal generator of an action is invariant under that action; that is, $\theta_{t*}X_p = X_{\theta_{t}(p)}$.\end{thm} 
 \begin{proof} Consider $f\in C^{\infty}(\theta_t(p))$, and 
 \begin{equation}\begin{aligned}\label{eq:infgen_invariance}
 \theta_{t*}(X_p)f &={} X_p\left(f\circ \theta_t\right)\\
@@ -413,7 +628,7 @@ X_pf = \lim_{\Delta t \rightarrow 0}\frac{f\left(\theta_{\Delta t}(p)\right)-f(p
 &={} \lim_{\Delta t \rightarrow 0}\frac{f\circ \theta_{\Delta t}\left(\theta_{t}(p)\right)-f(\theta_t(p))}{\Delta t}\\
 &={} X_{\theta_t(p)}f, 
 \end{aligned}\end{equation}
-where we have used the fact that $\R$ is an Abelian group to swap the order of $\Delta t$ and $t$ in the penultimate line. \end{proof}
+where we have used the fact that $\R$ is an Abelian group to swap the order of $\Delta t$ and $t$. \end{proof}
 
 \begin{cor}\label{prop:gen_on_orbits_alts}
 If $X_p=0$, then for each $q\in \text{orb}_{\theta}(p)$, $X_q=0$.
@@ -427,49 +642,40 @@ Depending on whether or not $X_p=0$, $\text{orb}_{\theta}(p)$ is either just $\{
 \end{thm}
 \begin{proof}
 Parameterize $\text{orb}_{\theta}(p)$ using parameter $t$ by writing $F(t) = \theta_t(p)$. Consider an arbitrary point $t_0\in \R$, and the vector $\partial_{t, t_0}\triangleq \frac{d}{dt}\bigr|_{t_0}$, which is a basis of $T_{t_0}\R$. 
- From the rank theorem, we know that $F$ is an immersion if and only if $F_*\partial_{t, t_0)} \neq 0$ for all $t_0\in \R$ (i.e., the Jacobian describing $F_*$ has a (constant) rank of $1$ at all points on $\R$).\footnote{{\color{red}oct 7 '24: need to write at least high level / brief notes on the rank of a mapping, immersion and imbedding. }} Now consider $f\in C^{\infty}(F(t_0))$, and using the fact that $\R$ is Abelian, we have 
+ From the rank theorem, we know that $F$ is an immersion of $\R$ into $N$ if and only if $F_*\left(\partial_{t, t_0}\right) \neq 0$ for all $t_0\in \R$ (i.e., the Jacobian describing $F_*$ has a constant rank (of $1$) at all points on $\R$).\footnote{{\color{red}oct 7 '24: need to write at least high level / brief notes on the rank of a mapping, immersion and imbedding. }} Now consider $f\in C^{\infty}(F(t_0))$, and by the same arguments used in the proof of Theorem \ref{thm:infgen_invariance}, we have 
  \begin{equation}\begin{aligned}\label{eq:orbit_immersion}
-F_*(\frac{d}{dt}\biggr|_{t_0})f = \frac{d}{dt}\left(f\circ F\right)_{t_0} &={} \lim_{\Delta t \rightarrow 0}\frac{f\circ F\left(t_0 + \Delta t\right)-f\circ F(t_0)}{\Delta t}\\
-&={} \lim_{\Delta t_0 \rightarrow 0}\frac{f\circ \theta_{t_0+\Delta t}(p)-f\circ \theta_{t_0}(p)}{\Delta t}\\
+F_*(\partial_{t,t_0})f = \partial_{t}\left(f\circ F\right)_{t_0} &={} \lim_{\Delta t \rightarrow 0}\frac{f\circ F\left(t_0 + \Delta t\right)-f\circ F(t_0)}{\Delta t}\\
+% &={} \lim_{\Delta t_0 \rightarrow 0}\frac{f\circ \theta_{t_0+\Delta t}(p)-f\circ \theta_{t_0}(p)}{\Delta t}\\
 &={} \lim_{\Delta t \rightarrow 0}\frac{f\circ \theta_{\Delta t}\left(\theta_{t_0}(p)\right)-f\left(\theta_{t_0}(p)\right)}{\Delta t}\\
 &={} X_{\theta_{t_0}(p)}f. 
 \end{aligned}\end{equation}
 % Note that while Eqs. \ref{eq:infgen_invariance} and \ref{eq:orbit_immersion} look similar, the pushforward maps $\theta_{t*}$ and $F_*$ are different (their domains being $T_{t_0}\R$ and $T_{p}N$ respectively, in particular). 
-Now, if $X_q \neq 0$ for any $q\in \text{orb}_{\theta}(p)$, then by Corollary \ref{prop:gen_on_orbits_alts}, then $X_{\theta_{t_0}(p)}$ is nonzero at all $t_0$, and $F$ is indeed an immersion. On the other hand, if $X_{\theta_{t_0}(p)} = F_*(\frac{d}{dt}\bigr|_{t_0}) = 0$, then this is true for all $t\in \R$ (all points on the orbit), and so $F$ is a constant map ({\color{red}because its Jacobian has a constant rank of $0$\footnote{revisit after doing the immersion / rank thm sections.}}). 
+Now, if $X_q \neq 0$ for any $q\in \text{orb}_{\theta}(p)$, then by Corollary \ref{prop:gen_on_orbits_alts}, $X_{\theta_{t_0}(p)}$ is nonzero at all $t_0$, and $F$ is indeed an immersion. Furthermore, by the same corollary, if $X_{\theta_{t_0}(p)} = 0$, then this is true for all points on the orbit, and so $F$ is a constant map (its Jacobian having a constant rank of $0$).\footnote{revisit after doing the immersion / rank thm sections.}
 \end{proof}
 % Plan to do flow and Lie derivative
 % \begin{itemize}
 %     \item Before I can do integral curve, carefully write up the d/dt thing (the pushforward.). Integral curve is defined on page. 125. 
 %     \item The pushforward example is on page 118. 
 % \end{itemize}
-Note that the formula $F_*(\frac{d}{dt}\bigr|_{t_0}) = X_{F(t_0)}$ says that, given an action $\theta$ and its infinitesimal generator $X$, at each point $p$, $X_p$ is the tangent velocity vector of the curve $t\rightarrow F(t)$, that is, to the curve describing the orbit generated by this action. {|color{red}We will often write $F_*(\frac{d}{dt}\bigr|_{t_0})$ as $\dot F(t_0)$ or $\left(\frac{dF}{dt}\right)_{t_0}$ or even just $\dot p(t_0)$ or $\dot \theta(t_0, p)$. Note that these are different from the \textit{scalar} functions $\dot f^i(t)$ introduced in Section \ref{sec:tangent_velo}. }\footnote{I dont like this notation. Can we just do away with it? its too confusing!}
+Note that the formula just obtained, namely $F_*(\partial_{t,t_0}) = X_{F(t_0)}$ says that, given an action $\theta$ and its infinitesimal generator $X$, at each point $p$, $X_p$ is the tangent velocity vector (see Section \ref{sec:tangent_velo}) of the curve $t\rightarrow F(t)$, that is, to the curve describing the orbit generated by this action. {\color{red}We will often write $F_*(\partial_{t,t_0})$ as $\dot F(t_0)$ or $\dot \theta(t_0, p)$. Note that these, being tangent vectors, are different from the time derivatives of \textit{scalar} quantities, $\dot f^i(t)$, introduced in Section \ref{sec:tangent_velo}. }\footnote{I dont like any of the alts to $F_*(\partial_{t,t_0})$. They lose the idea that we are looking at a vector. Write the rest of the document then decide.. it might be best to use the $\dot F(t)$ alt, despite me not liking it (it doesnt have the base point). But the dot does implicate the velocity-ness wrt time.. of the displacement / flow curve F. }
+
 
 \begin{defn}[Integral Curve]
 Given a vector field $X$ on a manifold $N$, we shall say that a curve $t\rightarrow F(t)$ defined on an open interval $(a,b)\subset \R$ is an \textit{integral curve} of $X$ if $\dot F(t) = X_{F(t)}$ on $(a, b)$.
  % $d \sigma / dt = X_{\sigma (t)}$ on $(a, b)$. % change sigma to something else. Since sigma is being used for one forms.. or maybe not? both nijmeijer and boothby use sigma for both integral curves and one forms. meaning should be clear from context. 
 \end{defn}
-In other words, the discussion above says that the orbit of an action is the integral curve of the infinitesimal generator of that action. That is, for $p$ fixed, we have $\dot \theta(t,p) = X_{\theta(t,p)}$. 
-.\\
-.\\
-.\\
+In other words, the discussion above says that the orbit of an action is the integral curve of the infinitesimal generator of that action, $\dot \theta(t,p) = X_{\theta(t,p)}$ (for a given $p$). 
+% .\\
+% .\\
+% .\\
 
 
-Plan to do Lie bracket, and distribution
+% Plan to do Lie bracket, and distribution
+% so i actually just took it as an axiom but here are some answers that seem reasonable. (for the first one i am not sure *why* you want the bracket to satisfy the Leibniz rule with respect to the "multiplication" defined by the bracket itself). Probably some sort of closure property, analogous to the lie derivative of a C^{\infty} function staying in C^{\infty} itself, allowing for repeated lie derivatives
 
-Plan to do involutivity. 
+% probably just closure. Like you want the "application" of the lie bracket to a vector field to be like the application of a vector to a function. where for functions, mult is usual pointwise mult in R, while for VFs, the mult is the lie bracket itself
+% Plan to do involutivity. 
 
-
-
-{\color{red}do the bit with d/dt being pushed forward by a curve, defining the derivative
-
-
-
-
-
-
-Let $X: N \rightarrow TN$ be a vector field on a manifold $N$. Recall the definition of the flow
-%\footnote{See \cite{boothby_2002} for a comprehensive discussion of flow maps and one-parameter subgroups, and \cite{nijmeijer_nonlinear_1990} for a more focused definiton.} 
-generated by a vector field: given $X$, an initial point $p$ in some neighborhood $U\subset N$, a maximal interval of existence $(a, b)$ of solutions, and a value $t\in (a,b)$, the flow $\phi(t, \cdot): U \rightarrow N$ generated by $X$ maps $p \mapsto \phi(t, p)\in N$, and satisfies the set of differential equations $\partial_t\phi(t, p) = X(\phi(t, p))$.\footnote{{\color{red} Try to improve this flow part via one of the textbooks}}
 
 One may define the derivative of various types of objects with respect to a vector field. The simplest of such objects are $C^{\infty}$ functions, and their Lie derivative along a vector field coincides with the directional derivative defined earlier. 
 
@@ -487,6 +693,13 @@ L_Xf(p) &={}\frac{d}{dt}\biggr|_{t=0}\left( f \circ \phi(t, p)  \right)\\
 \end{aligned}
 \end{equation}
 It can be shown that $L_Xh(p)$ is equivalent to $X(p)h$ (the vector $X(p)$ acting as a differential operator---or \textit{derivation}---on $h$ at point $p$), and motivates the alternate notation $L_Xh(p) = X(h)(p)$
+
+
+{\color{red}do the bit with d/dt being pushed forward by a curve, defining the derivative
+
+Let $X: N \rightarrow TN$ be a vector field on a manifold $N$. Recall the definition of the flow
+%\footnote{See \cite{boothby_2002} for a comprehensive discussion of flow maps and one-parameter subgroups, and \cite{nijmeijer_nonlinear_1990} for a more focused definiton.} 
+generated by a vector field: given $X$, an initial point $p$ in some neighborhood $U\subset N$, a maximal interval of existence $(a, b)$ of solutions, and a value $t\in (a,b)$, the flow $\phi(t, \cdot): U \rightarrow N$ generated by $X$ maps $p \mapsto \phi(t, p)\in N$, and satisfies the set of differential equations $\partial_t\phi(t, p) = X(\phi(t, p))$.\footnote{{\color{red} Try to improve this flow part via one of the textbooks}}
 
 Given a chart $(U, \varphi)$ around $p\in N$, we may write $X(p)$ in local coordinates as $(X_1(x), \dots, X_n(x))^T$, where $x = \varphi(p)$
 
@@ -537,7 +750,7 @@ where the addition and multiplication on the RHS are of course operations in $\R
 Given a manifold $N$, and its tangent space at $p$, $T_pN $, its dual \textit{cotangent space at $p$} is denoted by $T^*_pN$, and these can be collected via disjoint union into a cotangent bundle, denoted by $T^*N$ (c.f. Eq. \ref{eq:tangentbundle}). Here, a covector is a mapping $\sigma_p : T^*_pN\rightarrow \R$, and as in the case of generic vector and covector spaces (Section \ref{sec:covectors}), a basis $E_{1p}, \dots, E_{np}$ of $T_pN$ induces a covector basis $\omega^1_p, \dots, \omega^n_p$ of $T^*_pN$. A covector $\sigma_p$ can be expanded in this basis as $\sigma_p = \sigma_p(E_{ip})\omega^i_p$, where $\sigma_{ip}\triangleq\sigma_p(E_{ip})$ is the $i$-th component of the covector. Considering covectors as a functions of points on a manifold leads to a notion dual to vector fields, called one-forms. 
 
 \begin{defn}[One-form]\label{def:oneform}
-A \textit{smooth one-form} $\sigma\in T^*N$ assigns a covector $\sigma_p\in T_p^*N$ to each point $p$ such that for any chart $U, \varphi$ with frames $E_1, \dots, E_n$, the real-valued functions $\sigma_{i} = \sigma(E_i)$ are smooth ($C^{\infty}$) on $U$. 
+A \textit{smooth one-form} $\sigma\in T^*N$ assigns a covector $\sigma_p\in T_p^*N$ to each point $p$ such that for any chart $(U, \varphi)$ with frames $E_1, \dots, E_n$, the real-valued functions $\sigma_{i} = \sigma(E_i)$ are smooth ($C^{\infty}$) on $U$. 
 \end{defn}
 
 Note that analogously to a vector field case, a smooth one-form is a (smooth) section of the cotangent bundle, satisfying $\tilde \pi \circ \sigma = i_N$, where $\tilde \pi: T^*N \rightarrow N$ is the natural projection, and $i_N$ the identity. 
@@ -719,7 +932,18 @@ Consider the system \ref{eq:system} with $\text{dim}N = n$. Assume that $\text{d
 \end{thm}
 The 
 
-\bibliographystyle{unsrtnat}
+
+
+
+\section{Todos}
+\begin{itemize}
+	\item Initial document should only have observability and identifiability. modify the intro and title to reflect that. the one with full controllability if version 2, coming after calibration is done. 
+	\item ...
+\end{itemize}
+
+% \bibliographystyle{unsrtnat}
+% \bibliographystyle{dinat}
+\bibliographystyle{plainnat}
 \bibliography{refs}
 
 \end{document}
