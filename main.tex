@@ -152,11 +152,15 @@
 \usepackage{hyperref}
 \usepackage{todonotes}  % For development notes
 
+
+
 % Document geometry
 \geometry{
   letterpaper,
   top=1in,
   bottom=1in,
+  left=1in,    % Add this line
+  right=1in,   % Add this line
   heightrounded
 }
 
@@ -182,13 +186,14 @@
 
 \begin{document}
 
-\title{A Primer on Nonlinear Control with Applications in Synthetic Biology}
+\title{A Primer on Nonlinear Control\\
+with Applications in Synthetic Biology}
 \author{Vipul Singhal}
 \address{Integrated Biosciences, 900 Island Drive, Redwood City, CA 94065}
 \email{vipul@integratedbiosciences.com}
 
 \begin{abstract}
-We present a comprehensive treatment of nonlinear observability and identifiability through differential geometry. Beginning with fundamental concepts (manifolds, Frobenius theorem, distributions and codistributions), we develop the theory of observability-identifiability codistribution. This leads to practical methods for identifying unobservable states and non-identifiable parameters in biological systems. Our focus throughout is on applications to synthetic biology and gene regulatory networks.
+We present a brief overview of nonlinear observability, controllability and identifiability, and outline applications in systems and synthetic biology. We begin with some foundational ideas from geometry, namely manifolds, vector and covector fields, Lie derivatives and brackets, and Frobenius' theorem), followed by key tests of controllability and observability, and finally describe minimal realizations of nonlinear systems. This leads to practical methods for identifying unobservable or unreachable states, along with non-identifiable parameters in nonlinear systems. [add more about controlling and observing states]
 \end{abstract}
 
 \maketitle
@@ -488,7 +493,7 @@ Define $E_{ip} = \varphi^{-1}_* \left(\partial / \partial {x^i}\right)$ and $\ti
 F_*(E_{ip}) = \left(\frac{\partial f^j}{\partial x^i}\right)_{\varphi(p)}\tilde E_{jF(p)}, \qquad i = 1, \dots, n.
 \end{align}
 Furthermore, if $\beta^j \tilde E_{jF(p)} = F_*(\alpha^i E_{ip})$, then the components are related by 
-\begin{align}
+\begin{align}\label{eq:pushforward_in_lr_coeff}
 \beta^j = \alpha^i\frac{\partial f^j}{\partial x^i}, \qquad j = 1, \dots, m.
 \end{align}
 \end{thm}
@@ -502,7 +507,25 @@ F_*(E_{ip})y^j & = \left(F_*\circ \varphi^{-1}_* \left(\frac{\partial}{\partial 
 Thus, $F_*(E_{ip}) = \left(\frac{\partial f^j}{\partial x^i}\right) \tilde E_{jF(p)}$. The second part follows by recalling the linearity of $F_*$ and collecting terms, and is left as an exercise for the reader. 
 \end{proof}
 
-The terms $\frac{\partial y^j}{\partial x^i}$ form the {Jacobian} matrix, and as such, $F_*$ is also known as the \textit{differential} of $F$, denoted by $dF$. 
+In matrix termis, Eq. \ref{eq:pushforward_in_lr_coeff} can be written 
+\begin{align}\label{eq:pushforward_in_lr_matrix}
+\left[ \begin{array}{c}
+{\beta^1}\\
+{\vdots}\\
+{\beta^m}\end{array} \right] 
+& = {} 
+\left[\begin{array}{ccc}
+\frac{\partial f^1}{\partial x^1}  & \cdots & \frac{\partial f^1}{\partial x^n}\\
+\vdots & \ddots & \vdots\\
+\frac{\partial f^m}{\partial x^1}  & \cdots & \frac{\partial f^m}{\partial x^n}
+\end{array}\right]
+\left[\begin{array}{c}
+ \alpha^1\\
+\vdots\\
+\alpha^n
+  \end{array} \right],
+\end{align}
+with the terms $\frac{\partial f^j}{\partial x^i}$ forming the \textit{Jacobian matrix}. $F_*$ is also known as the \textit{differential} of $F$, denoted by $dF$. 
 
 \subsubsection{The tangent velocity vector}\label{sec:tangent_velo}
 The pushforward allows us to define the notion of the tangent \textit{velocity vector} to a curve. Roughly speaking, given a {curve} $F:(a,b)\rightarrow N$, the pushforward of the vector $\partial_{t, t_0} \triangleq \frac{d}{dt} \bigr|_{t_0}\in T_{t_0}(a,b)$ via $F_*$ results in the velocity vector $F_*(\partial_{t, t_0})\in T_{F(t_0)}N$; we can think of this as ``differentiating'' $F$ with respect to $t$ (at $t_0$). We describe this more formally next. 
@@ -728,7 +751,7 @@ This local representation illuminates that $X(p)h$, and therefore $L_Xh(p)$, def
 
 
 
-\subsection{One-forms, codistributions and pullbacks}\label{sec:1FandCodistrib}
+\subsection{Differential one-forms and codistributions}\label{sec:1FandCodistrib}
 \subsubsection{Covectors}\label{sec:covectors}
 
 Recall from linear algebra that given a finite dimensional vector space $V$, we may associate with it a dual vector space $V^*$, whose elements $\sigma : V \rightarrow \R$ are the linear functionals or \textit{covectors} on $V$. We briefly summarize some of their key properties. 
@@ -741,13 +764,13 @@ Recall from linear algebra that given a finite dimensional vector space $V$, we 
 \end{aligned}
 \end{equation*}
 where the addition and multiplication on the RHS are of course operations in $\R$. 
-    \item For $V$, $W$ vector spaces with their respective duals $V^*$ and $W^*$, the linear maps $F_*:V\rightarrow W$ and $F^*:W^*\rightarrow V^*$ are related by $(F^*\sigma)(v) = \sigma (F_*(v))$. Injectivity (surjectivity) of $F_*$ implies surjectivity (injectivity) of $F^*$. To see why, just think for 20 seconds. 
-    \item A basis $\left\{E_1, \dots, E_n\right\} \subset V$ induces a basis $\left\{\omega^1, \dots, \omega^n\right\} \subset V^*$ satisfying $\omega^i(E_j) = \delta^i_j$. This implies that for a vector $v = v^i E_i$, the coefficients can be extracted using the basis covectors, giving $v^j = \omega^j(v)$. 
+    \item For $V$, $W$ vector spaces with their respective duals $V^*$ and $W^*$, the linear maps $F_*:V\rightarrow W$ and $F^*:W^*\rightarrow V^*$ are related by $(F^*\sigma)(v) = \sigma (F_*(v))$. Injectivity (surjectivity) of $F_*$ implies surjectivity (injectivity) of $F^*$. %To see why, just think for 20 seconds. 
+    \item A basis $\left\{E_1, \dots, E_n\right\} \subset V$ induces a basis $\left\{\omega^1, \dots, \omega^n\right\} \subset V^*$ satisfying $\omega^i(E_j) = \delta^i_j$. This implies that for a vector $v = v^i E_i$, the coefficients can be extracted using the basis covectors, as in $v^j = \omega^j(v)$. 
 \end{itemize}
 
 \subsubsection{One-forms and the differential of a function}
 
-Given a manifold $N$, and its tangent space at $p$, $T_pN $, its dual \textit{cotangent space at $p$} is denoted by $T^*_pN$, and these can be collected via disjoint union into a cotangent bundle, denoted by $T^*N$ (c.f. Eq. \ref{eq:tangentbundle}). Here, a covector is a mapping $\sigma_p : T^*_pN\rightarrow \R$, and as in the case of generic vector and covector spaces (Section \ref{sec:covectors}), a basis $E_{1p}, \dots, E_{np}$ of $T_pN$ induces a covector basis $\omega^1_p, \dots, \omega^n_p$ of $T^*_pN$. A covector $\sigma_p$ can be expanded in this basis as $\sigma_p = \sigma_p(E_{ip})\omega^i_p$, where $\sigma_{ip}\triangleq\sigma_p(E_{ip})$ is the $i$-th component of the covector. Considering covectors as a functions of points on a manifold leads to a notion dual to vector fields, called one-forms. 
+Given a manifold $N$, and its tangent space at $p$, $T_pN $, its dual \textit{cotangent space at $p$} is denoted by $T^*_pN$, and these can be collected via disjoint union into a cotangent bundle, denoted by $T^*N$ (c.f. Eq. \ref{eq:tangentbundle}). Here, a covector is a mapping $\sigma_p : T^*_pN\rightarrow \R$, and as in the case of generic vector and covector spaces (Section \ref{sec:covectors}), a basis $E_{1p}, \dots, E_{np}$ of $T_pN$ induces a covector basis $\omega^1_p, \dots, \omega^n_p$ of $T^*_pN$. A covector $\sigma_p$ can be expanded in this basis as $\sigma_p = \sigma_p(E_{ip})\omega^i_p$, where $\sigma_{ip}\triangleq\sigma_p(E_{ip})$ is the coefficient of its $i$-th component. Considering covectors as a functions of points on a manifold leads to a notion dual to vector fields, called one-forms. 
 
 \begin{defn}[One-form]\label{def:oneform}
 A \textit{smooth one-form} $\sigma\in T^*N$ assigns a covector $\sigma_p\in T_p^*N$ to each point $p$ such that for any chart $(U, \varphi)$ with frames $E_1, \dots, E_n$, the real-valued functions $\sigma_{i} = \sigma(E_i)$ are smooth ($C^{\infty}$) on $U$. 
@@ -757,21 +780,21 @@ Note that analogously to a vector field case, a smooth one-form is a (smooth) se
 
 The field of frames $E_1, \dots, E_n$ induces (pointwise) a \textit{field of (coordinate) coframes} $\omega^1, \dots, \omega^n$ on $U$. This allows us to expand a one-form as the linear combination $\sigma = \sigma_i\omega^i$, with $\sigma_i$ as in Definition \ref{def:oneform}. Given a vector field $X$ and a one-form $\sigma$ on $U\subset N$, $\sigma(X)$ is a smooth (since $X$ and $\sigma$ are smooth) real-valued function on $U$, with $(\sigma(X))(p) = \sigma_p(X_p)$. 
 
- Let $f: N \rightarrow \R$ be a smooth function and $X$ a smooth vector field. This defines a one-form $df$ called the \textit{differential} of $f$ via the prescription $df(X) = X(f) \in C^{\infty}(N)$, where its value at a point is
-\begin{equation}\label{eq:differential1}
+ Let $f: N \rightarrow \R$ be a smooth function and $X = \alpha^i E_{i}$ a smooth vector field. This defines a one-form $df$ called the \textit{differential} of $f$ via the prescription $df(X) = X(f) \in C^{\infty}(N)$, where its value at a point is
+\begin{equation}\label{eq:exact_differential_function}
  \begin{aligned}
 df(X)(p) &={} X_p(f) \\&={} \alpha^{i}(p)E_{ip}(f) \\
-&={} \alpha^i(p)\partial_{ip}f\qquad \text{($f$ in local coordinates)}
+&={} \alpha^i(p)\partial_{ip}f\qquad \text{(dropping the caret from $\hat f$)}
  \end{aligned}
  \end{equation}
 
-On an open set $U\subset \R^n$ with coordinate functions $x^1, \dots, x^n$, field of frames $\partial_1, \dots, \partial_n$, we can define a field of coframes $dx^1, \dots, dx^n$, which is dual in the sense that $dx^i(\partial_j) = \delta^i_j$. We may extract the $i$-th component of a vector field $X$ in the natural basis as $dx^i(X)$, and write $X = dx^i(X)\partial_i$. 
+On an open set $U\subset \R^n$ with coordinate functions $x^1, \dots, x^n$ and field of frames $\partial_1, \dots, \partial_n$, we can define a field of coframes $dx^1, \dots, dx^n$, which is dual in the sense that $dx^i(\partial_j) = \delta^i_j$. We may extract the $i$-th component of a vector field $X$ in the natural basis as $dx^i(X)$, and write $X = dx^i(X)\partial_i$. 
 
-% To derive an expression for $df$ in local coordinates, that is, to find the coefficients in $df = \beta_i dx^i$, we start with Eq. \ref{eq:differential1} (over all $p$), 
+% To derive an expression for $df$ in local coordinates, that is, to find the coefficients in $df = \beta_i dx^i$, we start with Eq. \ref{eq:exact_differential_function} (over all $p$), 
 % % \begin{equation}\begin{aligned}
 % % df(X) = df(\alpha^i\partial_i) & = \left(\beta_i dx^i\right)\left(\alpha^j\partial_j\right) \\
 % % & = \beta_i \alpha^j dx^i(\partial_j)\\
-% % & = \beta_i \alpha^i = \alpha^i\partial_{i}f \qquad \text{from Eq \ref{eq:differential1},}
+% % & = \beta_i \alpha^i = \alpha^i\partial_{i}f \qquad \text{from Eq \ref{eq:exact_differential_function},}
 % % \end{aligned}
 % % \end{equation}
 % \begin{equation}\begin{aligned}
@@ -784,22 +807,58 @@ On an open set $U\subset \R^n$ with coordinate functions $x^1, \dots, x^n$, fiel
 % % noting the linearity of $dx^i$ and right-distributivity of $\left(\beta_i dx^i\right)$. 
 % giving $\beta_i = \partial_{i}f$, so that $df = (\partial_{i}f) dx^i = \frac{\partial f}{\partial x^1}dx^1+\cdots + \frac{\partial f}{\partial x^n}dx^n $. 
 
-To derive an expression for $df$ in local coordinates, that is, to find the coefficients in $df = \beta_i dx^i$, simply apply this equation to $\partial_j$, giving 
-\begin{equation}\begin{aligned}
-df(\partial_j) & = {} (\beta_i dx^i)(\partial_j)\\
-\partial_j f &={} \beta_i \delta_j^i 
+To derive an expression for $df$ in local coordinates, that is, to find the coefficients $\beta_i$ in $df = \beta_i dx^i$, note that $\partial_j f = df(\partial_j) = (\beta_i dx^i)(\partial_j) = \beta_j$
+% simply apply this equation to $\partial_j$, giving 
+% \begin{equation}\begin{aligned}
+% df(\partial_j) & = {} (\beta_i dx^i)(\partial_j)\\
+% \partial_j f &={} \beta_i \delta_j^i 
+% \end{aligned}\end{equation}
+% so that $df = (\partial_i f)dx^i = \frac{\partial f}{\partial x^1}dx^1+\cdots + \frac{\partial f}{\partial x^n}dx^n $. 
+so that % $df = \left(\partial_i f \right)dx^i$. %$df = \frac{\partial f}{\partial x^i}dx^i$. 
+\begin{equation}\begin{aligned}\label{eq:exact_differential_expansion}
+df = & \left(\partial_i f \right)dx^i\\
+= & \frac{\partial f}{\partial x^1}dx^1+\cdots + \frac{\partial f}{\partial x^n}dx^n. %f \frac{\partial f}{\partial x^i}
 \end{aligned}\end{equation}
-so that $df = (\partial_i f)dx^i = \frac{\partial f}{\partial x^1}dx^1+\cdots + \frac{\partial f}{\partial x^n}dx^n $. 
+\begin{remark}
+It is customary to write expansions in terms of covector bases $dx^1, \dots, dx^n$ as row vectors, while expansions in terms of vector bases $\frac{\partial}{\partial x^1}, \dots, \frac{\partial}{\partial x^n} $ as column vectors. Looking at Eqs. \ref{eq:exact_differential_function} and \ref{eq:exact_differential_expansion}, we can write
+\begin{align}\label{row_and_column_vectors}
+df &= \frac{\partial f}{\partial x^1} dx^1+\dots + \frac{\partial f}{\partial x^n} dx^n
+ = {} 
+\left[\begin{array}{ccc}
+\frac{\partial f}{\partial x^1}  & \cdots & \frac{\partial f}{\partial x^n}
+\end{array}\right],\\
+X &= \alpha^1 \frac{\partial}{\partial x^1} +\dots + \alpha^n \frac{\partial}{\partial x^n} = \left[\begin{array}{c}
+ \alpha^1\\
+\vdots\\
+\alpha^n
+  \end{array} \right]
+\end{align}
+This allows us to write Eq. \ref{eq:exact_differential_function} in matrix form,  
+\begin{align}\label{exact_differential_matrix}
+\begin{array}{c}
+df(X) \end{array}  
+& = {} 
+\left[\begin{array}{ccc}
+\frac{\partial f}{\partial x^1}  & \cdots & \frac{\partial f}{\partial x^n}
+\end{array}\right]
+\left[\begin{array}{c}
+ \alpha^1\\
+\vdots\\
+\alpha^n
+  \end{array} \right],
+\end{align}
+which should be compared with Eq. \ref{eq:pushforward_in_lr_matrix}.
+\end{remark}
 
 
-Any real-valued smooth function $f$ defines a one-form $df\in T^*N$ via Equation \ref{eq:differential1}. However, not every one form can be written as a differential $df$ of a function $f$. Those that can, are called \textit{exact}. A necessary condition for a one-form to be exact is that it be closed, with the defining characteristic 
+Any real-valued smooth function $f$ defines a one-form $df\in T^*N$ via Equation \ref{eq:exact_differential_function}. However, not every one form can be written as a differential $df$ of a function $f$. Those that can, are called \textit{exact}. A necessary condition for a one-form $\sigma = \sigma_i dx^i$ to be exact is that it be closed, with the defining characteristic 
 \begin{align}\label{eq:closedOneForm}
 \partial_j \sigma_i = \partial_i \sigma_j, \qquad \qquad \text{(closed one-form)},
 \end{align}
- for all $i, j = 1, \dots, n$, where $\sigma = \sigma_i dx^i$, and recall that $\partial_i \partial_j f = \partial_j \partial_i f$. The converse is partially true, where Condition \ref{eq:closedOneForm} is sufficient for the local existence of a function $f$ such that $\sigma_i = \partial_i f$. 
+ for all $i, j = 1, \dots, n$. This can be see by recalling the identity $\partial_i \partial_j f = \partial_j \partial_i f$. The converse is partially true, where Condition \ref{eq:closedOneForm} is sufficient for the local existence of a function $f$ such that $\sigma_i = \partial_i f$. 
 
-\subsubsection{The differential of a map versus a function}
-Discuss $F_*$ vs $df$. 
+% \subsubsection{The differential of a map versus a function}
+% Discuss $F_*$ vs $df$. 
 
 
 \subsection{more stuff}
