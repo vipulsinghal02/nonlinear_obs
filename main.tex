@@ -764,19 +764,19 @@ Recall from linear algebra that given a finite dimensional vector space $V$, we 
 \end{aligned}
 \end{equation*}
 where the addition and multiplication on the RHS are of course operations in $\R$. 
-    \item For $V$, $W$ vector spaces with their respective duals $V^*$ and $W^*$, the linear maps $F_*:V\rightarrow W$ and $F^*:W^*\rightarrow V^*$ are related by $(F^*\sigma)(v) = \sigma (F_*(v))$. Injectivity (surjectivity) of $F_*$ implies surjectivity (injectivity) of $F^*$. %To see why, just think for 20 seconds. 
+    \item For vector spaces $V$, $W$, and duals $V^*$ and $W^*$, the linear maps $F_*:V\rightarrow W$ and $F^*:W^*\rightarrow V^*$ are related by $(F^*\sigma)(v) = \sigma (F_*(v))$. Injectivity (surjectivity) of $F_*$ implies surjectivity (injectivity) of $F^*$. %To see why, just think for 20 seconds. 
     \item A basis $\left\{E_1, \dots, E_n\right\} \subset V$ induces a basis $\left\{\omega^1, \dots, \omega^n\right\} \subset V^*$ satisfying $\omega^i(E_j) = \delta^i_j$. This implies that for a vector $v = v^i E_i$, the coefficients can be extracted using the basis covectors, as in $v^j = \omega^j(v)$. 
 \end{itemize}
 
 \subsubsection{One-forms and the differential of a function}
 
-Given a manifold $N$, and its tangent space at $p$, $T_pN $, its dual \textit{cotangent space at $p$} is denoted by $T^*_pN$, and these can be collected via disjoint union into a cotangent bundle, denoted by $T^*N$ (c.f. Eq. \ref{eq:tangentbundle}). Here, a covector is a mapping $\sigma_p : T^*_pN\rightarrow \R$, and as in the case of generic vector and covector spaces (Section \ref{sec:covectors}), a basis $E_{1p}, \dots, E_{np}$ of $T_pN$ induces a covector basis $\omega^1_p, \dots, \omega^n_p$ of $T^*_pN$. A covector $\sigma_p$ can be expanded in this basis as $\sigma_p = \sigma_p(E_{ip})\omega^i_p$, where $\sigma_{ip}\triangleq\sigma_p(E_{ip})$ is the coefficient of its $i$-th component. Considering covectors as a functions of points on a manifold leads to a notion dual to vector fields, called one-forms. 
+Given a manifold $N$, and its tangent space at $p$, $T_pN $, its dual \textit{cotangent space at $p$} is denoted by $T^*_pN$, and these can be collected via disjoint union into a cotangent bundle, denoted by $T^*N$ (c.f. Eq. \ref{eq:tangentbundle}). Here, a covector is a mapping $\sigma_p : T_pN\rightarrow \R$, and as in the case of generic vector and covector spaces (Section \ref{sec:covectors}), a basis $E_{1p}, \dots, E_{np}$ of $T_pN$ induces a covector basis $\omega^1_p, \dots, \omega^n_p$ of $T^*_pN$. A covector $\sigma_p$ can be expanded in this basis as $\sigma_p = \sigma_p(E_{ip})\omega^i_p$, where $\sigma_{ip}\triangleq\sigma_p(E_{ip})$ is the coefficient of its $i$-th component. Considering covectors as a functions of points on a manifold leads to a notion dual to vector fields, called one-forms. 
 
 \begin{defn}[One-form]\label{def:oneform}
 A \textit{smooth one-form} $\sigma\in T^*N$ assigns a covector $\sigma_p\in T_p^*N$ to each point $p$ such that for any chart $(U, \varphi)$ with frames $E_1, \dots, E_n$, the real-valued functions $\sigma_{i} = \sigma(E_i)$ are smooth ($C^{\infty}$) on $U$. 
 \end{defn}
 
-Note that analogously to a vector field case, a smooth one-form is a (smooth) section of the cotangent bundle, satisfying $\tilde \pi \circ \sigma = i_N$, where $\tilde \pi: T^*N \rightarrow N$ is the natural projection, and $i_N$ the identity. 
+Note that analogously to the vector field case, a smooth one-form is a (smooth) section of the cotangent bundle, satisfying $\tilde \pi \circ \sigma = i_N$, where $\tilde \pi: T^*N \rightarrow N$ is the natural projection, and $i_N$ the identity. 
 
 The field of frames $E_1, \dots, E_n$ induces (pointwise) a \textit{field of (coordinate) coframes} $\omega^1, \dots, \omega^n$ on $U$. This allows us to expand a one-form as the linear combination $\sigma = \sigma_i\omega^i$, with $\sigma_i$ as in Definition \ref{def:oneform}. Given a vector field $X$ and a one-form $\sigma$ on $U\subset N$, $\sigma(X)$ is a smooth (since $X$ and $\sigma$ are smooth) real-valued function on $U$, with $(\sigma(X))(p) = \sigma_p(X_p)$. 
 
@@ -957,7 +957,7 @@ We define the notions of state indistinguishability, local observability, observ
 A system is locally observable if every state $x_0$ can be distinguished from its neighbors by using system trajectories remaining close to $x_0$. 
 
 \begin{defn}[Observation space]
-    The \textit{observation space} $\mathscr{O}$ of the system \eqref{eq:system} is the linear space (over field $\R$) of real valued smooth functions on $N$ containing $h_i, i = 1, \dots, p$ and all repeated Lie derivatives 
+    The \textit{observation space} $\mathscr{O}$ of the system \eqref{eq:system} is the linear space (over $\R$) of real valued smooth functions on $N$ containing $h_i, i = 1, \dots, p$ and all repeated Lie derivatives 
     \begin{align}
         L_{X_1}\dots L_{X_k}h_j, \quad j = 1,\dots, p, \quad k = 1,2, \dots
     \end{align}
